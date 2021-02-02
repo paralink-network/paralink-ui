@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import BaseLayout from "./BaseLayout.js";
+import BaseLayout from "./layouts/BaseLayout.js";
 import IpfsList from "./ipfs/IpfsList.js";
 
 function App() {
