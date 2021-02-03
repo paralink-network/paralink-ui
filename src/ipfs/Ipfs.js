@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Header, Segment } from "semantic-ui-react";
+import { Button, Header, Segment, Grid, Message } from "semantic-ui-react";
+
+import ace from "brace";
+import "brace/mode/json";
+import "brace/theme/github";
+
+import { JsonEditor as Editor } from "jsoneditor-react";
+import "jsoneditor-react/es/editor.min.css";
 
 class Ipfs extends React.Component {
   API_PATH = "http://127.0.0.1:7424/api";
@@ -8,10 +15,12 @@ class Ipfs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pql: {},
       hash: "",
+      result:
+        'Click "Test" button to get the result of the above PQL definition.',
       error: null,
     };
+    this.editor = React.createRef();
   }
 
   componentDidMount() {
@@ -28,16 +37,30 @@ class Ipfs extends React.Component {
       })
       .then((res) => {
         this.setState({
-          pql: res["pql"],
           hash: res["hash"],
           error: null,
         });
+        this.editor.current.jsonEditor.set(res["pql"]);
       })
       .catch((res) => {
         this.setState({
           error: res["error"],
         });
       });
+  }
+
+  pqlAction(endpoint) {
+    let text = this.editor.current.jsonEditor.getText();
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: text,
+    };
+
+    fetch(`${this.API_PATH}/${endpoint}`, requestOptions)
+      .then((res) => res.json())
+      .then((res) => this.setState({ result: JSON.stringify(res) }));
   }
 
   render() {
@@ -56,33 +79,40 @@ class Ipfs extends React.Component {
       );
     } else {
       return (
-        <div class="ui grid">
-          <div class="row">
+        <Grid>
+          <Grid.Row>
             <div class="ui big breadcrumb">
               <Link to="/ipfs">IPFS</Link>
               <i class="right chevron icon divider"></i>
               <div class="active section">{this.state.hash}</div>
             </div>
-          </div>
-          <div class="ui row">
-            <div id="jsoneditor"></div>
-          </div>
-          <button id="test-document" class="ui primary button">
-            Test
-          </button>
-          <button id="save-document" class="ui button">
-            Save to IPFS
-          </button>
-          <div class="row">
-            <div id="result-row" class="ui message">
-              <div class="header">Result:</div>
-              <p id="result">
-                Click "Test" button to get the result of the above PQL
-                definition.
-              </p>
+          </Grid.Row>
+          <Grid.Row>
+            <div style={{ height: "500px", width: "100%" }}>
+              <Editor
+                ref={this.editor}
+                value={{}}
+                ace={ace}
+                mode="code"
+                allowedModes={["code", "tree"]}
+                htmlElementProps={{ style: { height: "100%" } }}
+              />
             </div>
-          </div>
-        </div>
+          </Grid.Row>
+
+          <Button primary onClick={this.pqlAction.bind(this, "test_pql")}>
+            Test
+          </Button>
+          <Button onClick={this.pqlAction.bind(this, "save_pql")}>
+            Save to IPFS
+          </Button>
+          <Grid.Row>
+            <Message style={{ width: "100%" }}>
+              <Message.Header>Result:</Message.Header>
+              <p>{this.state.result}</p>
+            </Message>
+          </Grid.Row>
+        </Grid>
       );
     }
   }
