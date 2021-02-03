@@ -2,6 +2,10 @@
 
 React UI for the [paralink-node](https://github.com/paralink-network/paralink-node).
 
+## Setup
+
+The project requires `node` >= 14. Then run `yarn install` to install the dependencies.
+
 ## Run
 
 In the project directory, you can run:
