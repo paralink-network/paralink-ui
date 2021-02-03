@@ -1,5 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { Header, Segment } from "semantic-ui-react";
 
 class Ipfs extends React.Component {
   API_PATH = "http://127.0.0.1:7424/api";
@@ -42,21 +43,23 @@ class Ipfs extends React.Component {
   render() {
     let hash = this.props.match.params.hash;
     if (this.state.error) {
-      console.log(this.state);
       return (
-        <h1 className="ui header">
-          When retrieving IPFS hash <i>{hash}</i> an error occurred:{" "}
-          {this.state.error}
-        </h1>
+        <div>
+          <Header as="h1" attached="top">
+            Error: {this.state.error}
+          </Header>
+          <Segment attached>
+            An error occurred retrieving IPFS hash <i>{hash}</i> . The selected
+            IPFS hash was not a valid PQL definition file.
+          </Segment>
+        </div>
       );
     } else {
       return (
         <div class="ui grid">
           <div class="row">
             <div class="ui big breadcrumb">
-              <a class="section" href="/ipfs">
-                IPFS
-              </a>
+              <Link to="/ipfs">IPFS</Link>
               <i class="right chevron icon divider"></i>
               <div class="active section">{this.state.hash}</div>
             </div>

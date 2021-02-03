@@ -1,5 +1,6 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Table, Header, Button } from "semantic-ui-react";
 
 class IpfsList extends React.Component {
   API_PATH = "http://127.0.0.1:7424/api";
@@ -32,7 +33,14 @@ class IpfsList extends React.Component {
   render() {
     return (
       <div class="column">
-        <h1>List of local IPFS hashes</h1>
+        <Link to="/ipfs/new">
+          <Button primary>
+            <i class="plus icon"></i>New PQL definition
+          </Button>
+        </Link>
+
+        <Header as="h1">List of local IPFS hashes</Header>
+
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -43,7 +51,9 @@ class IpfsList extends React.Component {
           <Table.Body>
             {this.state.ipfsHashes.map((hash) => (
               <Table.Row>
-                <Table.Cell>{hash}</Table.Cell>
+                <Table.Cell>
+                  <Link to={`/ipfs/${hash}`}>{hash}</Link>
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
