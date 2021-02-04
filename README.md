@@ -4,7 +4,17 @@ React UI for the [paralink-node](https://github.com/paralink-network/paralink-no
 
 ## Setup
 
-The project requires `node` >= 14. Then run `yarn install` to install the dependencies.
+The project requires `node` >= 14. Run `yarn install` to install the dependencies.
+
+## Backend
+
+To install backend follow the instructions in the [paralink-node repo](https://github.com/paralink-network/paralink-node). Use:
+
+```
+docker-compose up --build
+```
+
+in the backend repo to start a headless node.
 
 ## Run
 
