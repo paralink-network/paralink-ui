@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Header, Segment, Grid, Message } from "semantic-ui-react";
+import { Button, Grid, Header, Message, Segment } from "semantic-ui-react";
 
 import ace from "brace";
 import "brace/mode/json";
