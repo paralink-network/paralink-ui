@@ -4,6 +4,20 @@ React UI for the [paralink-node](https://github.com/paralink-network/paralink-no
 
 ## Setup
 
+Have npm > 5 installed
+```
+npm --version
+```
+To check your version, otherwise, you can upgrade simply
+
+```
+npm install -g npm@6.14.8
+```
+
+This is to make sure you'll have the same package-lock.json generated.
+
+______
+
 The project requires `node` >= 14. 
 Installing nvm will help you switch between different versions of node. The instructions for installing nvm are here: https://github.com/creationix/nvm
 
