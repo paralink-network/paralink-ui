@@ -1,16 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { Container, Header, Menu } from "semantic-ui-react";
+
+import { Link } from "react-router-dom";
+import React from "react";
 
 function BaseLayout(props: any) {
   return (
     <div>
       <Menu fixed="top" inverted>
         <Container>
-          <Menu.Item as="a" header>
+          <Menu.Item header>
             <Link to="/ipfs">Paralink Network</Link>
           </Menu.Item>
-          <Menu.Item as="a">
+          <Menu.Item>
             <Link to="/ipfs">IPFS</Link>
           </Menu.Item>
         </Container>
