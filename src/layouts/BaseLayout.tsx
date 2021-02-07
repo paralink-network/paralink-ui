@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Header, Menu } from "semantic-ui-react";
 
-function BaseLayout(props) {
+function BaseLayout(props: any) {
   return (
     <div>
       <Menu fixed="top" inverted>
