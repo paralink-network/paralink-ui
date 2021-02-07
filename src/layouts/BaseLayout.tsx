@@ -1,21 +1,12 @@
 import { Container, Header, Menu } from "semantic-ui-react";
-
+import { NavigationBar } from "../NavigationBar";
 import { Link } from "react-router-dom";
 import React from "react";
 
 function BaseLayout(props: any) {
   return (
     <div>
-      <Menu fixed="top" inverted>
-        <Container>
-          <Menu.Item header>
-            <Link to="/ipfs">Paralink Network</Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link to="/ipfs">IPFS</Link>
-          </Menu.Item>
-        </Container>
-      </Menu>
+      <NavigationBar></NavigationBar>
 
       <Container textAlign="left" style={{ marginTop: "7em" }}>
         {props.children}
