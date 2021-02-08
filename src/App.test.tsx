@@ -8,4 +8,4 @@ describe('App', () => {
     const linkElement = screen.getByText(/Paralink Network/i);
     expect(linkElement).toBeInTheDocument();
   });
-})
+});

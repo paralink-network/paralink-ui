@@ -66,6 +66,24 @@ It runs the app in the development mode. Open [http://localhost:3000](http://loc
 
 The page will reload if you make edits. You will also see any lint errors in the console.
 
+## Pre-commit hooks
+
+At commit time, some tests should be running making sure you are using the right format and tests are passing.
+
+You can also run things manually by doing the following :
+
+```
+.git/hooks/pre-commit
+```
+
+## Tests
+
+To run the tests simply do :
+
+```
+npm test
+```
+
 ## Recommendations
 
 - Using VSCode

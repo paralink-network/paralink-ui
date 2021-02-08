@@ -4,5 +4,5 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
-  transformIgnorePatterns: ['node_modules/(?!(jsoneditor-react))/']
+  transformIgnorePatterns: ['node_modules/(?!(jsoneditor-react))/'],
 };
