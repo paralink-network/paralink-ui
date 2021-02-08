@@ -70,7 +70,7 @@
     ]
   },
   "lint-staged": {
-    "*.{js,tsx}": "npm run lint"
+    "*.{js,tsx}": "eslint --fix"
   },
   "husky": {
     "hooks": {
