@@ -6,13 +6,28 @@ import ace from "brace";
 import "brace/mode/json";
 import "brace/theme/github";
 
+// No typings for jsoneditor-react for now just using @ts-ignore for getting around the issue
+// Later on with advanced design we might not used that library. If we do we can as well define typings for it
+// @ts-ignore
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
 
-class Ipfs extends React.Component {
-  API_PATH = "http://127.0.0.1:7424/api";
 
-  constructor(props) {
+interface IpfsProps {
+  match: { params: { hash: string }}
+}
+
+interface IpfsState {
+  hash: string;
+  result: string;
+  error: any;
+}
+
+class Ipfs extends React.Component<IpfsProps, IpfsState> {
+  API_PATH = "http://127.0.0.1:7424/api";
+  editor: any;
+
+  constructor(props: IpfsProps) {
     super(props);
     this.state = {
       hash: "",
@@ -49,7 +64,7 @@ class Ipfs extends React.Component {
       });
   }
 
-  pqlAction(endpoint) {
+  pqlAction(endpoint: string) {
     let text = this.editor.current.jsonEditor.getText();
 
     const requestOptions = {
@@ -81,10 +96,10 @@ class Ipfs extends React.Component {
       return (
         <Grid>
           <Grid.Row>
-            <div class="ui big breadcrumb">
+            <div className="ui big breadcrumb">
               <Link to="/ipfs">IPFS</Link>
-              <i class="right chevron icon divider"></i>
-              <div class="active section">{this.state.hash}</div>
+              <i className="right chevron icon divider"></i>
+              <div className="active section">{this.state.hash}</div>
             </div>
           </Grid.Row>
           <Grid.Row>
