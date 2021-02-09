@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "./App.css";
+import "./App.scss";
 import BaseLayout from "./layouts/BaseLayout";
 import IpfsList from "./ipfs/IpfsList";
 import Ipfs from "./ipfs/Ipfs";
