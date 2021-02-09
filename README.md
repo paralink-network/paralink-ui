@@ -76,6 +76,15 @@ You can also run things manually by doing the following :
 .git/hooks/pre-commit
 ```
 
+If you encounter some issues with the hooks and they aren't triggering on commit please do the following at the root of the repo:
+
+```
+rm -rf .git/hooks
+npm i
+```
+
+This should normally solve the issue.
+
 ## Tests
 
 To run the tests simply do :
