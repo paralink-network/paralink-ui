@@ -1,29 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Table, Header, Button } from "semantic-ui-react";
+import { Button, Header, Table } from 'semantic-ui-react';
 
+import { Link } from 'react-router-dom';
+import React, { ReactNode } from 'react';
 
 interface IpfsListState {
-  ipfsHashes: any[]
+  ipfsHashes: any[];
 }
 
 class IpfsList extends React.Component<{}, IpfsListState> {
-  API_PATH = "http://127.0.0.1:7424/api";
+  API_PATH = 'http://127.0.0.1:7424/api';
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       ipfsHashes: [],
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     fetch(`${this.API_PATH}/ipfs`)
       .then((res) => res.json())
       .then(
         (res) => {
           this.setState({
-            ipfsHashes: res["hashes"],
+            ipfsHashes: res.hashes,
           });
         },
         (error) => {
@@ -31,16 +31,17 @@ class IpfsList extends React.Component<{}, IpfsListState> {
             ipfsHashes: [],
           });
           console.log(error);
-        }
+        },
       );
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <div className="column">
         <Link to="/ipfs/new">
           <Button primary>
-            <i className="plus icon"></i>New PQL definition
+            <i className="plus icon" />
+            New PQL definition
           </Button>
         </Link>
 
