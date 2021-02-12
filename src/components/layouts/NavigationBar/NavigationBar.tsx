@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './NavigationBar.scss';
 
-export const NavigationBar = (): JSX.Element => {
+const NavigationBar = (): JSX.Element => {
   return (
     <div className="navigation-bar">
       <nav className="navigation-bar__nav">
