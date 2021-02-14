@@ -1,7 +1,6 @@
-import { Button, Header, Table } from 'semantic-ui-react';
-
-import { Link } from 'react-router-dom';
 import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Header, Table } from 'semantic-ui-react';
 
 interface IpfsListState {
   ipfsHashes: any[];

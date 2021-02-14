@@ -1,12 +1,12 @@
+import React from 'react';
 import { Container } from 'semantic-ui-react';
-import React, { ReactNode } from 'react';
-import { NavigationBar } from '../NavigationBar';
+import NavigationBar from '../NavigationBar';
 
 interface BaseLayoutProps {
   children: any;
 }
 
-function BaseLayout(props: BaseLayoutProps): ReactNode {
+export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
   return (
     <div>
       <NavigationBar />
@@ -17,5 +17,3 @@ function BaseLayout(props: BaseLayoutProps): ReactNode {
     </div>
   );
 }
-
-export default BaseLayout;

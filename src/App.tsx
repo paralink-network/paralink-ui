@@ -1,17 +1,18 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import BaseLayout from './components/layouts/BaseLayout';
+import IpfsList from './pages/ipfs/IpfsList';
+import Ipfs from './pages/ipfs/Ipfs';
 
-import "./App.scss";
-import BaseLayout from "./layouts/BaseLayout";
-import IpfsList from "./ipfs/IpfsList";
-import Ipfs from "./ipfs/Ipfs";
+import './App.scss';
 
-function App() {
+function App(): JSX.Element {
   return (
     <Router>
       <BaseLayout>
         <Switch>
           <Route path="/ipfs/:hash" component={Ipfs} />
-          <Route path={["/", "/ipfs"]} component={IpfsList} />
+          <Route path={['/', '/ipfs']} component={IpfsList} />
         </Switch>
       </BaseLayout>
     </Router>
