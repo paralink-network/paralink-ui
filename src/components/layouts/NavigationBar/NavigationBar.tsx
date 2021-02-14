@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
+import UserContext from '../../../hooks/UserContext';
 import './NavigationBar.scss';
 
 const NavigationBar = (): JSX.Element => {
+  const userContext = useContext(UserContext);
+
+  const logout = (): void => {
+    userContext.logout();
+  };
+
   return (
     <div className="navigation-bar">
       <nav className="navigation-bar__nav">
@@ -23,12 +29,16 @@ const NavigationBar = (): JSX.Element => {
             </ul>
           </div>
         </div>
-        <div className="navigation-bar__user">
-          {/* TODO: Need to be a user page */}
-          <a className="navigation-bar__link navigation-bar__user-link" href="/">
-            <FaUserCircle />
-          </a>
-        </div>
+        {userContext.isLoggedIn ? (
+          <div className="navigation-bar__user">
+            {/* TODO: Need to have this as a small menu showing up */}
+            <a className="navigation-bar__link navigation-bar__user-link" onClick={logout} href="/">
+              <FaUserCircle />
+            </a>
+          </div>
+        ) : (
+          ''
+        )}
       </nav>
     </div>
   );

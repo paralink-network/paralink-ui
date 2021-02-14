@@ -1,5 +1,6 @@
 module.exports = {
   extends: ['airbnb-typescript-prettier'],
+  ignorePatterns: ['.eslintrc.js'],
   // Rules can be here to override the preset of eslint from airbnb, if they are too strict.
   rules: {
     '@typescript-eslint/ban-ts-comment': 'off',
@@ -22,6 +23,8 @@ module.exports = {
     'no-console': 'off',
 
     'react/destructuring-assignment': 0,
+    'react/jsx-props-no-spreading': 'off',
+    'import/prefer-default-export': 0,
     // 'react/prop-types': 0, -> this is an example
   },
   overrides: [

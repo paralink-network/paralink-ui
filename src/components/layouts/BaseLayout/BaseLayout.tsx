@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import NavigationBar from '../NavigationBar';
+import { NavigationBar } from '../NavigationBar';
 
 interface BaseLayoutProps {
   children: any;
