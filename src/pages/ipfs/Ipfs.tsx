@@ -116,10 +116,10 @@ class Ipfs extends React.Component<IpfsProps, IpfsState> {
           </div>
         </Grid.Row>
 
-        <Button primary onClick={(): void => this.pqlAction('test_pql')}>
+        <Button primary onClick={(): void => this.pqlAction('pql/test')}>
           Test
         </Button>
-        <Button onClick={(): void => this.pqlAction('save_pql')}>Save to IPFS</Button>
+        <Button onClick={(): void => this.pqlAction('ipfs/save_pql')}>Save to IPFS</Button>
         <Grid.Row>
           <Message style={{ width: '100%' }}>
             <Message.Header>Result:</Message.Header>
