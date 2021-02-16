@@ -11,8 +11,8 @@ import { ProtectedRoute } from './shared/ProtectedRoute';
 
 function App(): JSX.Element {
   // Handle user state
-  // Ask if we should have this instead directly in a utils instead
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const accessToken = localStorage.getItem(storageNames.user) || '';
+  const [isLoggedIn, setLoggedIn] = useState(!!accessToken);
 
   // Handle user login by setting the storage and state
   const login = (token: string): void => {
@@ -26,7 +26,6 @@ function App(): JSX.Element {
     localStorage.removeItem(storageNames.user);
   };
 
-  // TODO: still need to handle the first time getting to site ( if token still valid, present etc. )
   return (
     <UserContext.Provider value={{ isLoggedIn, login, logout }}>
       <Router>

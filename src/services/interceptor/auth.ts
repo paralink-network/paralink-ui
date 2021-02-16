@@ -8,7 +8,7 @@ const paralinkApi = axios.create({
 
 paralinkApi.interceptors.request.use(
   (config: any) => {
-    // Check for user token
+    // Check for user token, we can't use hooks from here
     const accessToken = localStorage.getItem(storageNames.user);
 
     // If user not logged we just pass it through, the backend should not accept it

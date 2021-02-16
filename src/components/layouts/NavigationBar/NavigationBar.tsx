@@ -32,7 +32,7 @@ const NavigationBar = (): JSX.Element => {
         {userContext.isLoggedIn ? (
           <div className="navigation-bar__user">
             {/* TODO: Need to have this as a small menu showing up */}
-            <a className="navigation-bar__link navigation-bar__user-link" onClick={logout} href="/">
+            <a className="navigation-bar__link navigation-bar__user-link" onClick={logout} href="/login">
               <FaUserCircle />
             </a>
           </div>

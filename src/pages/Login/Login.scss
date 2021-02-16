@@ -1,5 +1,6 @@
 $elevation-card: 0 0 1px 0 rgba(8, 11, 14, 0.6), 0 16px 16px -1px rgba(8, 11, 14, 0.1);
 $color-secondary: #e1e4e8;
+$error-color: red;
 
 .login {
   &__card {
@@ -34,6 +35,16 @@ $color-secondary: #e1e4e8;
     width: 100%;
     outline: none;
     padding: 0 15px;
+
+    &--error {
+      border-color: $error-color;
+    }
+  }
+
+  &__input-error-msg {
+    font-size: 12px;
+    margin-left: 15px;
+    color: $error-color;
   }
 
   &__input-icon {
