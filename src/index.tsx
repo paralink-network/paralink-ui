@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// TODO: Remove this when we tackled Ipfs pages and get rid of semantic-ui
 import 'semantic-ui-css/semantic.min.css';
+import App from './App';
+import './index.scss';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>

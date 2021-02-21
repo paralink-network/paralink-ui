@@ -1,10 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import BaseLayout from './components/layouts/BaseLayout';
-import IpfsList from './pages/ipfs/IpfsList';
-import Ipfs from './pages/ipfs/Ipfs';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.scss';
+import BaseLayout from './components/layouts/BaseLayout';
+import Ipfs from './pages/ipfs/Ipfs';
+import IpfsList from './pages/ipfs/IpfsList';
 
 function App(): JSX.Element {
   return (

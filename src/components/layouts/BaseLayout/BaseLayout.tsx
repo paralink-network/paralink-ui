@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
 import NavigationBar from '../NavigationBar';
 
 interface BaseLayoutProps {
@@ -10,10 +9,7 @@ export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
   return (
     <div>
       <NavigationBar />
-
-      <Container textAlign="left" style={{ marginTop: '7em' }}>
-        {props.children}
-      </Container>
+      <div className="text-left max-w-screen-lg px-4 mx-auto mt-24">{props.children}</div>
     </div>
   );
 }
