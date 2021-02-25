@@ -27,7 +27,7 @@ const IpfsList = (): JSX.Element => {
   }, []);
 
   const ipfsItems = ipfsHashes.map((hash) => (
-    <Table.Row>
+    <Table.Row key={hash}>
       <Table.Cell>
         <Link to={`/ipfs/${hash}`}>{hash}</Link>
       </Table.Cell>
