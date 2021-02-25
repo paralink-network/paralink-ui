@@ -1,4 +1,16 @@
 @import 'styles/tailwind';
+@import 'styles/_fonts';
+
+:root {
+  --color-primary: #2885d0;
+  --color-primary-light: #18bde6;
+  --color-secondary: #586064;
+  --color-secondary-light: #90969a;
+  --color-secondary-lightest: #bbbbbb;
+  --color-secondary-darkest: #191d20;
+  --color-light: #ffffff;
+  --color-dark: #000000;
+}
 
 body {
   margin: 0;
