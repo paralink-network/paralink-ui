@@ -2,18 +2,14 @@ import React from 'react';
 import { Container } from 'semantic-ui-react';
 import { NavigationBar } from '../NavigationBar';
 
-interface BaseLayoutProps {
-  children: any;
-}
+const BaseLayout: React.FC<{}> = ({ children }) => (
+  <div>
+    <NavigationBar />
 
-export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
-  return (
-    <div>
-      <NavigationBar />
+    <Container textAlign="left" style={{ marginTop: '7em' }}>
+      {children}
+    </Container>
+  </div>
+);
 
-      <Container textAlign="left" style={{ marginTop: '7em' }}>
-        {props.children}
-      </Container>
-    </div>
-  );
-}
+export default BaseLayout;
