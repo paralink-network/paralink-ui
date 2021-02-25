@@ -27,8 +27,14 @@ export const saveTokens = (jwtToken: JWTTokenResponse): JWTTokenResponse => {
   return jwtToken;
 };
 
-export const getAccessToken = (): string => localStorage.getItem(ACCESS_TOKEN)!;
-export const getRefreshToken = (): string => localStorage.getItem(REFRESH_TOKEN)!;
+const localGet = (key: string, defaultValue = ''): string => {
+  const value = localStorage.getItem(key);
+  if (value === null) return defaultValue;
+  return value;
+};
+
+export const getAccessToken = (): string => localGet(ACCESS_TOKEN);
+export const getRefreshToken = (): string => localGet(REFRESH_TOKEN);
 
 axiosInstance.interceptors.response.use(
   (res) => res,
