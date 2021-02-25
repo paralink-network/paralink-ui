@@ -93,6 +93,9 @@ To run the tests simply do :
 npm test
 ```
 
+## Style Guide
+[Paralink Simple Style Guide.pdf](https://github.com/paralink-network/paralink-ui/files/6045510/Paralink.Simple.Style.Guide.pdf)
+
 ## Recommendations
 
 - Using VSCode
