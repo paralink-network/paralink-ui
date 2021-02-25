@@ -3,6 +3,8 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   // Rules can be here to override the preset of eslint from airbnb, if they are too strict.
   rules: {
+    camelcase: 'warn',
+    '@typescript-eslint/no-empty-function': 'warn',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
