@@ -15,14 +15,10 @@ import { LoadPQLHash } from './pql';
 import Error from './Error';
 import { axiosInstance } from '../../../api/api';
 
-interface PqlAction {
-  success: string;
-}
-
-const pqlAction = (endpoint: string, text: LoadPQLHash, setResult: (value: string) => void): void => {
+const pqlAction = (endpoint: string, text: any, setResult: (value: string) => void): void => {
   Promise.resolve()
-    .then(() => axiosInstance.post<PqlAction>(`${endpoint}`, { text }))
-    .then((res) => res.data.success)
+    .then(() => axiosInstance.post<any>(`${endpoint}`, text))
+    .then((res) => JSON.stringify(res.data))
     .then(setResult)
     .catch((err) => setResult(err.message));
 };
@@ -38,8 +34,8 @@ const Ipfs: React.FC<{}> = () => {
   const [error, setError] = useState('');
   const [resultContent, setResultContent] = useState('');
 
-  const getContent = (): LoadPQLHash => editor.current.jsonEditor.getText();
-  const testAction = (): void => pqlAction('ipfs/test', getContent(), setResultContent);
+  const getContent = (): any => editor.current.jsonEditor.getText();
+  const testAction = (): void => pqlAction('pql/test', getContent(), setResultContent);
   const saveAction = (): void => pqlAction('ipfs/save_pql', getContent(), setResultContent);
 
   useEffect(() => {
