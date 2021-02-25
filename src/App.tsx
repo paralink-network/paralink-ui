@@ -1,39 +1,28 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.scss';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import BaseLayout from './components/layouts/BaseLayout';
-import { storageNames } from './config';
-import UserContext from './hooks/UserContext';
-import Ipfs from './pages/ipfs/Ipfs';
-import IpfsList from './pages/ipfs/IpfsList';
-import Login from './pages/Login/Login';
-import { ProtectedRoute } from './shared/ProtectedRoute';
+import Login from './components/pages/auth/Login';
+import Page from './components/Page';
+import { ERROR_404_PAGE, LOGIN_PAGE, USER_PAGES } from './components/urls';
+import Error404 from './components/pages/errors/Error404';
+import UserContext, { emptyUser } from './state/user';
+import './App.scss';
 
 function App(): JSX.Element {
-  // Handle user state
-  const accessToken = localStorage.getItem(storageNames.user) || '';
-  const [isLoggedIn, setLoggedIn] = useState(!!accessToken);
+  const [user, setUser] = useState({ ...emptyUser });
 
-  // Handle user login by setting the storage and state
-  const login = (token: string): void => {
-    setLoggedIn(true);
-    localStorage.setItem(storageNames.user, token);
-  };
-
-  // Handle user logout
-  const logout = (): void => {
-    setLoggedIn(false);
-    localStorage.removeItem(storageNames.user);
-  };
+  const login = (email: string): void => setUser({ email, isLoggedIn: true });
+  const logout = (): void => setUser({ ...emptyUser });
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout }}>
       <Router>
         <BaseLayout>
           <Switch>
-            <Route path="/login" component={Login} />
-            <ProtectedRoute path="/ipfs/:hash" component={Ipfs} />
-            <ProtectedRoute path={['/', '/ipfs']} component={IpfsList} />
+            <Route path={LOGIN_PAGE} component={Login} />
+            <Route path={ERROR_404_PAGE} component={Error404} />
+            <Route path={USER_PAGES} component={Page} />
+            <Route path="/" render={() => <Redirect to={ERROR_404_PAGE} />} />
           </Switch>
         </BaseLayout>
       </Router>
