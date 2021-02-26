@@ -11,17 +11,8 @@ import 'brace/theme/github';
 // @ts-ignore
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
-import { LoadPQLHash } from './pql';
-import { axiosInstance } from '../../../api/api';
 import { ERROR_404_PAGE } from '../../urls';
-
-const pqlAction = (endpoint: string, text: any, setResult: (value: string) => void): void => {
-  Promise.resolve()
-    .then(() => axiosInstance.post<any>(`${endpoint}`, text))
-    .then((res) => JSON.stringify(res.data))
-    .then(setResult)
-    .catch((err) => setResult(err.message));
-};
+import { loadIPFSWithHash, runPqlApi, savePqlApi } from '../../../api/pql';
 
 interface UrlParams {
   hash: string;
@@ -35,13 +26,17 @@ const Ipfs: React.FC<{}> = () => {
   const [resultContent, setResultContent] = useState('');
 
   const getContent = (): any => editor.current.jsonEditor.getText();
-  const testAction = (): void => pqlAction('pql/test', getContent(), setResultContent);
-  const saveAction = (): void => pqlAction('ipfs/save_pql', getContent(), setResultContent);
+  const testAction = (): Promise<void> =>
+    runPqlApi(getContent())
+      .then(setResultContent)
+      .catch((err) => setResultContent(err.message));
+  const saveAction = (): Promise<void> =>
+    savePqlApi(getContent())
+      .then(setResultContent)
+      .catch((err) => setResultContent(err.message));
 
   useEffect(() => {
-    Promise.resolve()
-      .then(() => axiosInstance.get<LoadPQLHash>(`/ipfs/${hash}`))
-      .then((res) => res.data)
+    loadIPFSWithHash(hash)
       .then((res) => {
         editor.current.jsonEditor.set(res.pql);
         setResultContent(res.hash);
