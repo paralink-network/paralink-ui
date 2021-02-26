@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import IpfsList from './pages/ipfs/IpfsList';
-import Ipfs from './pages/ipfs/Ipfs';
+import Ipfs from '../pages/ipfs/Ipfs';
+import IpfsList from '../pages/ipfs/IpfsList';
 import UserContext from '../state/user';
 import { IPFS_BASE_PAGE, IPFS_PAGE, LOGIN_PAGE } from './urls';
 
