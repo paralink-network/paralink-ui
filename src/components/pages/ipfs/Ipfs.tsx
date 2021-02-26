@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Button, Grid, Message } from 'semantic-ui-react';
 
 import ace from 'brace';
@@ -12,8 +12,8 @@ import 'brace/theme/github';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
 import { LoadPQLHash } from './pql';
-import Error from './Error';
 import { axiosInstance } from '../../../api/api';
+import { ERROR_404_PAGE } from '../../urls';
 
 const pqlAction = (endpoint: string, text: any, setResult: (value: string) => void): void => {
   Promise.resolve()
@@ -28,10 +28,10 @@ interface UrlParams {
 }
 
 const Ipfs: React.FC<{}> = () => {
-  const { hash } = useParams<UrlParams>();
+  const history = useHistory();
   const editor = useRef<Editor>();
+  const { hash } = useParams<UrlParams>();
 
-  const [error, setError] = useState('');
   const [resultContent, setResultContent] = useState('');
 
   const getContent = (): any => editor.current.jsonEditor.getText();
@@ -46,12 +46,10 @@ const Ipfs: React.FC<{}> = () => {
         editor.current.jsonEditor.set(res.pql);
         setResultContent(res.hash);
       })
-      .catch((err) => setError(err.message));
-  }, [hash]);
+      .catch(() => history.push(ERROR_404_PAGE));
+  }, [hash, history]);
 
-  return error.length > 0 ? (
-    <Error message={error} hash={hash} />
-  ) : (
+  return (
     <Grid>
       <Grid.Row>
         <div className="ui big breadcrumb">
