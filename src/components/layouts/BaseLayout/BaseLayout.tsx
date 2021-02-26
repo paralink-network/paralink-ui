@@ -6,7 +6,7 @@ const BaseLayout: React.FC<{}> = ({ children }) => (
   <div>
     <NavigationBar />
 
-    <Container textAlign="left" style={{ marginTop: '7em' }}>
+    <Container textAlign="left" style={{ paddingTop: '7em' }}>
       {children}
     </Container>
   </div>
