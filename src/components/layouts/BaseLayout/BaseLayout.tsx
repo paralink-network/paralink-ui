@@ -1,15 +1,13 @@
 import React from 'react';
 import NavigationBar from '../NavigationBar';
 
-interface BaseLayoutProps {
-  children: any;
-}
-
-export default function BaseLayout(props: BaseLayoutProps): JSX.Element {
+const BaseLayout: React.FC<{}> = ({ children }) => {
   return (
     <div>
       <NavigationBar />
-      <div className="text-left max-w-screen-lg px-4 mx-auto mt-24">{props.children}</div>
+      <div className="text-left max-w-screen-lg px-4 mx-auto mt-24">{children}</div>
     </div>
   );
-}
+};
+
+export default BaseLayout;

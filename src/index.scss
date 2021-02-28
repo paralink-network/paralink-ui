@@ -1,15 +1,16 @@
 @import 'styles/tailwind';
 @import 'styles/_fonts';
+@import 'styles/_colors';
 
 :root {
-  --color-primary: #2885d0;
-  --color-primary-light: #18bde6;
-  --color-secondary: #586064;
-  --color-secondary-light: #90969a;
-  --color-secondary-lightest: #bbbbbb;
-  --color-secondary-darkest: #191d20;
-  --color-light: #ffffff;
-  --color-dark: #000000;
+  --color-primary: #{$primary};
+  --color-primary-light: #{$primary-light};
+  --color-secondary: #{$secondary};
+  --color-secondary-light: #{$secondary-light};
+  --color-secondary-lightest: #{$secondary-lightest};
+  --color-secondary-darkest: #{$secondary-darkest};
+  --color-light: #{$light};
+  --color-dark: #{$dark};
 }
 
 body {

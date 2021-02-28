@@ -5,7 +5,7 @@ import BaseLayout from './components/layouts/BaseLayout';
 import Ipfs from './pages/ipfs/Ipfs';
 import IpfsList from './pages/ipfs/IpfsList';
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   return (
     <Router>
       <BaseLayout>
@@ -16,6 +16,6 @@ function App(): JSX.Element {
       </BaseLayout>
     </Router>
   );
-}
+};
 
 export default App;
