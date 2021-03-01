@@ -1,14 +1,14 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
 import { NavigationBar } from '../NavigationBar';
 
 const BaseLayout: React.FC<{}> = ({ children }) => (
   <div>
     <NavigationBar />
 
-    <Container textAlign="left" style={{ paddingTop: '7em' }}>
+
+    <div className="container-fluid" style={{ paddingTop: '7em' }}>
       {children}
-    </Container>
+    </div>
   </div>
 );
 

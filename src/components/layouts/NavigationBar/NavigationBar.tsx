@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../state/user';
-import { HOME_PAGE, IPFS_BASE_PAGE } from '../../urls';
+import { HOME_PAGE_ROUTE, IPFS_BASE_PAGE_ROUTE, QUERY_LIST_ROUTE } from '../../routes';
 import './NavigationBar.scss';
 
 const NavigationBar = (): JSX.Element => {
@@ -12,16 +12,19 @@ const NavigationBar = (): JSX.Element => {
     <div className="navigation-bar">
       <nav className="navigation-bar__nav">
         <div className="navigation-bar__general">
-          <Link className="navigation-bar__logo" to={HOME_PAGE}>
+          <Link className="navigation-bar__logo" to={HOME_PAGE_ROUTE}>
             <img className="navigation-bar__logo-img" src="/assets/images/logo-icon.png" alt="Paralink Network" />
           </Link>
           <div className="navigation-bar__content">
             <ul className="navigation-bar__links">
               <li className="navigation-bar__link">
-                <Link to={IPFS_BASE_PAGE}>Paralink Network</Link>
+                <Link to={IPFS_BASE_PAGE_ROUTE}>Paralink Network</Link>
               </li>
               <li className="navigation-bar__link">
-                <Link to={IPFS_BASE_PAGE}>IPFS</Link>
+                <Link to={IPFS_BASE_PAGE_ROUTE}>IPFS</Link>
+              </li>
+              <li className='navigation-bar__link'>
+                <Link to={QUERY_LIST_ROUTE} />
               </li>
             </ul>
           </div>
