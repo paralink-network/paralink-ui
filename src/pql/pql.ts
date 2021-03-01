@@ -1,26 +1,25 @@
-export interface SourceItem {
-  step: string;
-  method: string;
-  url: string;
-}
+import { PqlAggregation } from "./aggregators";
+import { PqlLoader } from "./loaders";
+import { PqlOperator } from "./operators";
+
+
+type SourceOperation = 
+  | PqlLoader
+  | PqlOperator;
 
 export interface Source {
   name: string;
-  pipeline: SourceItem[];
+  pipeline: SourceOperation[];
 }
 
-export interface Aggregate {
-  method: string;
-}
-
-export interface PQL {
+export interface Pql {
   name: string;
-  psql_version: string; // TODO changed from snake cased to camel cased!
+  psql_version: string; // TODO suggestion: changed from snake cased to camel cased!
   sources: Source[];
-  aggregate?: Aggregate;
+  aggregate?: PqlAggregation;
 }
 
-export const emptyPql: PQL = {
+export const emptyPql: Pql = {
   name: '',
   psql_version: '0.1',
   sources: [],
