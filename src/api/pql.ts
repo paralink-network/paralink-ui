@@ -1,8 +1,8 @@
-import { PQL } from '../pql/pql';
+import { Pql } from '../pql/pql';
 import { axiosInstance } from './api';
 
 interface PQLWithHash {
-  pql: PQL;
+  pql: Pql;
   hash: string;
 }
 
@@ -20,13 +20,13 @@ interface Success {
   success: string;
 }
 
-const resolvePqlApiAction = <Res>(endpoint: string, pql: PQL): Promise<Res> =>
+const resolvePqlApiAction = <Res>(endpoint: string, pql: Pql): Promise<Res> =>
   Promise.resolve()
     .then(() => axiosInstance.post<Res>(endpoint, pql))
     .then((res) => res.data);
 
-export const runPqlApi = (pql: PQL): Promise<string> =>
+export const runPqlApi = (pql: Pql): Promise<string> =>
   resolvePqlApiAction<Result>('pql/test', pql).then((res) => res.result);
 
-export const savePqlApi = (pql: PQL): Promise<string> =>
+export const savePqlApi = (pql: Pql): Promise<string> =>
   resolvePqlApiAction<Success>('ipfs/save_pql', pql).then((res) => res.success);
