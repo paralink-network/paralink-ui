@@ -1,12 +1,12 @@
 import React from 'react';
 import { Header, Segment } from 'semantic-ui-react';
 
-interface Error {
+interface ErrorContainer {
   message: string;
   hash: string;
 }
 
-const Error: React.FC<Error> = ({ message, hash }) => (
+const ErrorContainer = ({ message, hash }: ErrorContainer) => (
   <div>
     <Header as="h1" attached="top">
       Error: {message}
@@ -17,4 +17,4 @@ const Error: React.FC<Error> = ({ message, hash }) => (
   </div>
 );
 
-export default Error;
+export default ErrorContainer;

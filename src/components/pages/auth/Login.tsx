@@ -5,9 +5,9 @@ import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 import './Login.scss';
-import { authenticateUser, UserAuthenticationData } from '../../../api/auth/auth';
-import { HOME_PAGE } from '../../urls';
+import { authenticateUser, UserAuthenticationData } from '../../../api/auth';
 import UserContext from '../../../state/user';
+import { HOME_PAGE_ROUTE } from '../../routes';
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -32,7 +32,7 @@ const Login = (): JSX.Element => {
     authenticateUser(data)
       .then(() => {
         userContext.login(data.email);
-        history.push(HOME_PAGE);
+        history.push(HOME_PAGE_ROUTE);
       })
       .catch((error) => {
         console.error(error);
