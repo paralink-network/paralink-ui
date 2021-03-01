@@ -12,7 +12,7 @@ import 'brace/theme/github';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
 import { loadIPFSWithHash, runPqlApi, savePqlApi } from '../../../api/pql';
-import Error from './Error';
+import Error from '../../common/loading/error/ErrorContainer';
 
 interface UrlParams {
   hash: string;
@@ -45,38 +45,40 @@ const Ipfs: React.FC<{}> = () => {
   }, [hash]);
 
   return error.length > 0 ? <Error message={error} hash={hash} /> : (
-    <Grid>
-      <Grid.Row>
-        <div className="ui big breadcrumb">
-          <Link to="/ipfs">IPFS</Link>
-          <i className="right chevron icon divider" />
-          <div className="active section">{hash}</div>
-        </div>
-      </Grid.Row>
-      <Grid.Row>
-        <div style={{ height: '500px', width: '100%' }}>
-          <Editor
-            ref={editor}
-            value={{}}
-            ace={ace}
-            mode="code"
-            allowedModes={['code', 'tree']}
-            htmlElementProps={{ style: { height: '100%' } }}
-          />
-        </div>
-      </Grid.Row>
+    <div className="container m-auto">
+      <Grid>
+        <Grid.Row>
+          <div className="ui big breadcrumb">
+            <Link to="/ipfs">IPFS</Link>
+            <i className="right chevron icon divider" />
+            <div className="active section">{hash}</div>
+          </div>
+        </Grid.Row>
+        <Grid.Row>
+          <div style={{ height: '500px', width: '100%' }}>
+            <Editor
+              ref={editor}
+              value={{}}
+              ace={ace}
+              mode="code"
+              allowedModes={['code', 'tree']}
+              htmlElementProps={{ style: { height: '100%' } }}
+            />
+          </div>
+        </Grid.Row>
 
-      <Button primary onClick={testAction}>
-        Test
-      </Button>
-      <Button onClick={saveAction}>Save to IPFS</Button>
-      <Grid.Row>
-        <Message style={{ width: '100%' }}>
-          <Message.Header>Result:</Message.Header>
-          <p>{resultContent}</p>
-        </Message>
-      </Grid.Row>
-    </Grid>
+        <Button primary onClick={testAction}>
+          Test
+        </Button>
+        <Button onClick={saveAction}>Save to IPFS</Button>
+        <Grid.Row>
+          <Message style={{ width: '100%' }}>
+            <Message.Header>Result:</Message.Header>
+            <p>{resultContent}</p>
+          </Message>
+        </Grid.Row>
+      </Grid>
+    </div>
   );
 };
 

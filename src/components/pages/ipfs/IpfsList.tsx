@@ -35,7 +35,7 @@ const IpfsList = (): JSX.Element => {
   ));
 
   return (
-    <div className="column">
+    <div className="container m-auto">
       <Link to="/ipfs/new">
         <Button primary>
           <i className="plus icon" />
