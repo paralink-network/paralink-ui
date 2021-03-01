@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Button, Grid, Message } from 'semantic-ui-react';
 
 import ace from 'brace';
@@ -11,18 +11,18 @@ import 'brace/theme/github';
 // @ts-ignore
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
-import { ERROR_404_PAGE } from '../../urls';
 import { loadIPFSWithHash, runPqlApi, savePqlApi } from '../../../api/pql';
+import Error from './Error';
 
 interface UrlParams {
   hash: string;
 }
 
 const Ipfs: React.FC<{}> = () => {
-  const history = useHistory();
   const editor = useRef<Editor>();
   const { hash } = useParams<UrlParams>();
 
+  const [error, setError] = useState('');
   const [resultContent, setResultContent] = useState('');
 
   const getContent = (): any => editor.current.jsonEditor.getText();
@@ -41,10 +41,10 @@ const Ipfs: React.FC<{}> = () => {
         editor.current.jsonEditor.set(res.pql);
         setResultContent(res.hash);
       })
-      .catch(() => history.push(ERROR_404_PAGE));
-  }, [hash, history]);
+      .catch((err) => setError(err.message));
+  }, [hash]);
 
-  return (
+  return error.length > 0 ? <Error message={error} hash={hash} /> : (
     <Grid>
       <Grid.Row>
         <div className="ui big breadcrumb">
