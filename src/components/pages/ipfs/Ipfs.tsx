@@ -12,7 +12,7 @@ import 'brace/theme/github';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
 import { loadIPFSWithHash, runPqlApi, savePqlApi } from '../../../api/pql';
-import Error from '../../common/loading/error/ErrorContainer';
+import Error from '../../common/sub-pages/ErrorContainer';
 
 interface UrlParams {
   hash: string;
