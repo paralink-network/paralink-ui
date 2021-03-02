@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+// TODO: Remove semantic here later on when this is tackled and use directly tailwind
 import { Button, Header, Table } from 'semantic-ui-react';
 
 interface IpfsListState {

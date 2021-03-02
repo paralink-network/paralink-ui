@@ -1,13 +1,12 @@
 import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
 import './NavigationBar.scss';
 
 const NavigationBar = (): JSX.Element => {
   return (
-    <div className="navigation-bar">
-      <nav className="navigation-bar__nav">
+    <div className="navigation-bar bg-dark">
+      <nav className="navigation-bar__nav ">
         <div className="navigation-bar__general">
           <Link className="navigation-bar__logo" to="/">
             <img className="navigation-bar__logo-img" src="/assets/images/logo-icon.png" alt="Paralink Network" />

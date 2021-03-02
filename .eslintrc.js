@@ -22,7 +22,8 @@ module.exports = {
     'no-console': 'off',
 
     'react/destructuring-assignment': 0,
-    // 'react/prop-types': 0, -> this is an example
+    'jsx-a11y/label-has-for': 0,
+    'jsx-a11y/label-has-associated-control': 0,
   },
   overrides: [
     {

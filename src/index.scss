@@ -1,13 +1,26 @@
+@import 'styles/tailwind';
+@import 'styles/_fonts';
+@import 'styles/_colors';
+
+:root {
+  --color-primary: #{$primary};
+  --color-primary-light: #{$primary-light};
+  --color-secondary: #{$secondary};
+  --color-secondary-light: #{$secondary-light};
+  --color-secondary-lightest: #{$secondary-lightest};
+  --color-secondary-darkest: #{$secondary-darkest};
+  --color-light: #{$light};
+  --color-dark: #{$dark};
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

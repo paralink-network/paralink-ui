@@ -1,0 +1,6 @@
+/* WARNING: those @tailwind imports should be on their own file we can't have them in other sass files 
+ * we can potentially split them up into smaller and only include or import them when needed 
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
