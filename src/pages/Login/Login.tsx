@@ -50,7 +50,7 @@ const Login = (props: RouteComponentProps<{}, {}, LoginProps>): JSX.Element => {
     }));
   };
 
-  const login = async (data: LoginFormData): Promise<any> => {
+  const login = (data: LoginFormData): void => {
     // Avoid the page to refresh from submitting the form
     // event.preventDefault();
     // TODO: put like a loading icon on the login button
@@ -59,7 +59,7 @@ const Login = (props: RouteComponentProps<{}, {}, LoginProps>): JSX.Element => {
 
     console.log('data', data);
     // Just to check
-    await paralinkApi
+    paralinkApi
       // For now this is going to be the placeholder
       .get('https://jsonplaceholder.typicode.com/todos')
       .then(() => {
