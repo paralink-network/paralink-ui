@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const OBTAIN_TOKEN = '/token/obtain/';
+// const OBTAIN_TOKEN = '/token/obtain/';
 // const REFRESH_TOKEN_URL = '/token/refresh/';
 
 export const ACCESS_TOKEN = 'access_token';
 export const REFRESH_TOKEN = 'refresh_token';
 
-interface JWTTokenResponse {
-  refresh: string;
-  access: string;
-}
+// interface JWTTokenResponse {
+//   refresh: string;
+//   access: string;
+// }
 
 export const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:7424/api/',
@@ -21,11 +21,11 @@ export const axiosInstance = axios.create({
   },
 });
 
-export const saveTokens = (jwtToken: JWTTokenResponse): JWTTokenResponse => {
-  localStorage.setItem(ACCESS_TOKEN, jwtToken.access);
-  localStorage.setItem(REFRESH_TOKEN, jwtToken.refresh);
-  return jwtToken;
-};
+// export const saveTokens = (jwtToken: JWTTokenResponse): JWTTokenResponse => {
+//   localStorage.setItem(ACCESS_TOKEN, jwtToken.access);
+//   localStorage.setItem(REFRESH_TOKEN, jwtToken.refresh);
+//   return jwtToken;
+// };
 
 const localGet = (key: string, defaultValue = ''): string => {
   const value = localStorage.getItem(key);
@@ -64,7 +64,7 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export const obtainTokenApi = async (email: string, password: string): Promise<JWTTokenResponse> =>
-  axiosInstance
-    .post<JWTTokenResponse>(OBTAIN_TOKEN, { email, password })
-    .then((res) => res.data);
+// export const obtainTokenApi = async (email: string, password: string): Promise<JWTTokenResponse> =>
+//   axiosInstance
+//     .post<JWTTokenResponse>(OBTAIN_TOKEN, { email, password })
+//     .then((res) => res.data);

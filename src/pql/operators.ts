@@ -1,4 +1,3 @@
-
 export const MATH_METHOD_ADD = 'add';
 export const MATH_METHOD_MUL = 'mul';
 export const MATH_METHOD_SUB = 'sub';
@@ -11,20 +10,11 @@ export const SQL_METHOD_LIST = 'list';
 export const SQL_METHOD_DICT = 'dict';
 export const SQL_METHOD_NONE = 'None';
 
-type MathMethod =
-  | typeof MATH_METHOD_ADD
-  | typeof MATH_METHOD_MUL
-  | typeof MATH_METHOD_SUB
-  | typeof MATH_METHOD_DIV;
+type MathMethod = typeof MATH_METHOD_ADD | typeof MATH_METHOD_MUL | typeof MATH_METHOD_SUB | typeof MATH_METHOD_DIV;
 
-type MathDirection =
-  | typeof MATH_DIRECTION;
+type MathDirection = typeof MATH_DIRECTION;
 
-type SqlMethod = 
-  | typeof SQL_METHOD_JSON
-  | typeof SQL_METHOD_LIST
-  | typeof SQL_METHOD_DICT
-  | typeof SQL_METHOD_NONE;
+type SqlMethod = typeof SQL_METHOD_JSON | typeof SQL_METHOD_LIST | typeof SQL_METHOD_DICT | typeof SQL_METHOD_NONE;
 
 interface DefaultPqlOperator {
   step: string;
@@ -40,7 +30,7 @@ interface GetIndexPqlOperator extends DefaultPqlOperator {
 }
 
 interface MathPqlOperator extends DefaultPqlOperator {
-  method: MathMethod,
+  method: MathMethod;
   params: number;
   direction?: MathDirection;
 }
@@ -53,12 +43,8 @@ interface QuerySqlPqlOperator extends DefaultPqlOperator {
 
 // interface CustomStepPqlOperator extends GetIndexPqlOperator { }
 
-export type PqlOperator = 
-  | TraversePqlOperator
-  | GetIndexPqlOperator
-  | MathPqlOperator
-  | QuerySqlPqlOperator;
-  // | CustomStepPqlOperator;
+export type PqlOperator = TraversePqlOperator | GetIndexPqlOperator | MathPqlOperator | QuerySqlPqlOperator;
+// | CustomStepPqlOperator;
 
 export const traversePqlOperator = (params: string[]): TraversePqlOperator => ({
   params,
@@ -71,16 +57,16 @@ export const GetIndexPqlOperator = (params: number): GetIndexPqlOperator => ({
   step: 'get_index',
 });
 
-export const mathOperator = (method: MathMethod, params: number, direction?: MathDirection) => ({
+export const mathOperator = (method: MathMethod, params: number, direction?: MathDirection): MathPqlOperator => ({
   direction,
   method,
   params,
   step: 'math',
 });
 
-export const QuerySqlPqlOperator = (method: SqlMethod, query: string, result?: boolean) => ({
+export const QuerySqlPqlOperator = (method: SqlMethod, query: string, result: boolean): QuerySqlPqlOperator => ({
   method,
   query,
   result,
-  step: 'query.sql'
+  step: 'query.sql',
 });

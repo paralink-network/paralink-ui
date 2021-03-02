@@ -1,4 +1,4 @@
-import { axiosInstance, obtainTokenApi, saveTokens } from "./api"
+import { axiosInstance } from './api';
 
 const LOGIN_URL = '/auth';
 
@@ -12,8 +12,7 @@ const loginUser = (data: UserAuthenticationData): Promise<void> => {
 
   if (email !== 'test@test.com') throw new Error('Email does not exist!');
   if (password !== 'geslo123') throw new Error('Password is incorrect!');
-  axiosInstance.post<{}>(LOGIN_URL, data)
-    .then((res) => res.data);
+  axiosInstance.post<{}>(LOGIN_URL, data).then((res) => res.data);
   return Promise.resolve();
 };
 
