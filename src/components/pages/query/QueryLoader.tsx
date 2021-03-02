@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { loadIPFSWithHash } from '../../../api/pql';
 import { emptyPql, Pql } from '../../../pql/pql';
-import ErrorContainer from '../../common/loading/error/ErrorContainer';
-import Loading from '../../common/loading/Loading';
-import QueryBuilder from './QueryBuilder';
+import ErrorContainer from '../../common/sub-pages/ErrorContainer';
+import Loading from '../../common/sub-pages/Loading';
+import QueryController from './QueryController';
 
 interface UrlParams {
   hash: string;
 }
 
-const QueryBlocker = (): JSX.Element => {
+const QueryLoader = (): JSX.Element => {
   const { hash } = useParams<UrlParams>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ const QueryBlocker = (): JSX.Element => {
   if (error.length > 0)
     return <ErrorContainer message={error} hash={hash} />
 
-  return <QueryBuilder pql={{ ...pql }} />
+  return <QueryController pql={{ ...pql }} />
 }
 
-export default QueryBlocker;
+export default QueryLoader;

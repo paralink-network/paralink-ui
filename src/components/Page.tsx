@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import UserContext from '../state/user';
 import Ipfs from './pages/ipfs/Ipfs';
 import IpfsList from './pages/ipfs/IpfsList';
-import QueryController from './pages/query-builder/QueryBlocker';
+import QueryController from './pages/query/QueryLoader';
 import { HOME_PAGE_ROUTE, IPFS_BASE_PAGE_ROUTE, IPFS_PAGE_ROUTE, QUERY_BUILDER_ROUTE, QUERY_LIST_ROUTE } from './routes';
 
 const Page = (): JSX.Element => {
