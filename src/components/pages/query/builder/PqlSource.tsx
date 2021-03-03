@@ -6,13 +6,15 @@ import PqlOperation from './PqlOperation';
 interface PqlSource {
   id: string;
   title: string;
-  operations: ExtendedOperator[];
+  operators: ExtendedOperator[];
   onTitleChange: (value: string) => void;
+  onConfigClick: (id: string) => void;
 }
 
-const PqlSource = ({ id, title, operations, onTitleChange }: PqlSource) => {
-  const operationView = operations
-    .map((operation, index) => <PqlOperation index={index} key={operation.id} {...operation} />);
+const PqlSource = ({ id, title, operators, onTitleChange, onConfigClick }: PqlSource) => {
+  const operationView = operators
+    .map((operator, index) => <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} />);
+
   return (
     <div className='mb-5 border rounded pb-2 px-1 bg-yellow-200'>
       <input type="text" value={title} onChange={(event) => onTitleChange(event.target.value)} className="mb-1 focus:ring-indigo-500 focus:border-indigo-500 inline-block border-0 shadow-sm sm:text-sm rounded-md w-full" placeholder="Source-1"/>

@@ -9,18 +9,19 @@ import { TooltipButton } from '../../../common/Buttons';
 
 interface PqlOperation extends ExtendedOperator { 
   index: number;
+  onConfigClick: (id: string) => void;
 }
 
-const PqlOperation = ({ id, text, index }: PqlOperation) => (
+const PqlOperation = ({ id, index, operator, onConfigClick }: PqlOperation) => (
   <Draggable draggableId={id} index={index}>
     {(provided) => (
       <div className='bg-white border rounded px-5 py-2 mb-1 flex flex-row justify-between' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-        {text}
+        {operator.title}
         <div className='flex flex-row'>
           <TooltipButton className='rounded-full ml-1' color='green' tooltip='Run'>
             <InlineIcon icon={arrowRightDropCircleOutline} />
           </TooltipButton>
-          <TooltipButton className='rounded-full ml-1' tooltip='Config'>
+          <TooltipButton className='rounded-full ml-1' tooltip='Config' onClick={() => onConfigClick(id)}>
             <InlineIcon icon={cogIcon} />
           </TooltipButton>
           <TooltipButton className='rounded-full ml-1' color='red' tooltip='Remove'>

@@ -5,20 +5,19 @@ import { QueryData } from './builder';
 import PqlSource from './PqlSource';
 
 interface PqlPipeline {
-  data: QueryData
+  data: QueryData,
+  onConfigClick: (id: string) => void;
 }
 
-const PqlPipeline = ({ data }: PqlPipeline): JSX.Element => {
+const PqlPipeline = ({ data, onConfigClick }: PqlPipeline): JSX.Element => {
   const sourcesView = data.sourceOrder
     .map((sourceId) => {
-      const { operations, title } = data.sources[sourceId];
-      const operationItems = operations
-        .map((operationId) => data.operations[operationId]);
+      const { operators, title } = data.sources[sourceId];
+      const operationItems = operators
+        .map((operationId) => data.operators[operationId]);
 
-      return <PqlSource id={sourceId} key={sourceId} title={title} onTitleChange={(value) => {}} operations={operationItems} />
+      return <PqlSource id={sourceId} key={sourceId} title={title} onTitleChange={(value) => {}} operators={operationItems} onConfigClick={onConfigClick} />
   });
-
-
 
   return (
     <div>
