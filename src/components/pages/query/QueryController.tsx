@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pql } from '../../../pql/pql';
-import QueryBuilder from './builder/QueryBuilder';
+import QueryBuilder from './QueryBuilder';
 import QueryHeader from './QueryHeader';
 import QueryResult from './result/QueryResult';
 
