@@ -1,15 +1,15 @@
 import React from 'react';
-import { Button } from '../../../common/Buttons';
 import QuerySelectorContainer from '../QueryClosableContainer';
+import SelectorButton from './SelectorButton';
 
 interface OperationSelector extends QuerySelectorContainer { }
 
 const OperationSelector = ({ onClose }: OperationSelector): JSX.Element => (
   <QuerySelectorContainer onClose={onClose}>
-    <Button className='mb-1'>Traverse</Button>
-    <Button className='mb-1'>Get index</Button>
-    <Button className='mb-1'>Math</Button>
-    <Button className='mb-1'>Query SQL</Button>
+    <SelectorButton>Traverse</SelectorButton>
+    <SelectorButton>Get index</SelectorButton>
+    <SelectorButton>Math</SelectorButton>
+    <SelectorButton>SQL query</SelectorButton>
   </QuerySelectorContainer>
 );
 
