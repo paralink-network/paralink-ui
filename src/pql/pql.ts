@@ -2,7 +2,7 @@ import { PqlAggregation } from './aggregators';
 import { PqlLoader } from './loaders';
 import { PqlOperator } from './operators';
 
-type SourceOperation = PqlLoader | PqlOperator;
+export type SourceOperation = PqlLoader | PqlOperator;
 
 export interface Source {
   name: string;
