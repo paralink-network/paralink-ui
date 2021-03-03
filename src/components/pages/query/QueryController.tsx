@@ -1,14 +1,14 @@
 import React from 'react';
-import { Pql } from '../../../pql/pql';
+import { QueryData } from './builder/builder';
 import QueryBuilder from './QueryBuilder';
 import QueryHeader from './QueryHeader';
 import QueryResult from './result/QueryResult';
 
 interface QueryController {
-  pql: Pql
+  queryData: QueryData;
 }
 
-const QueryController = ({ pql }: QueryController): JSX.Element => {
+const QueryController = ({ queryData }: QueryController): JSX.Element => {
 
   return (
     <div className='grid grid-cols-4 gap-0 h-full'>
@@ -16,7 +16,7 @@ const QueryController = ({ pql }: QueryController): JSX.Element => {
         <QueryHeader />
         <QueryResult result="" />
       </div>
-      <QueryBuilder pql={pql}/> 
+      <QueryBuilder queryData={queryData}/> 
     </div>
   )
 }

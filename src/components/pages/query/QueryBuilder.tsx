@@ -6,38 +6,36 @@ import chartBoxPlusOutline from '@iconify-icons/mdi/chart-box-plus-outline';
 import sourceFork from '@iconify-icons/mdi/source-fork';
 import databasePlusOutline from '@iconify-icons/mdi/database-plus-outline';
 import PqlPipeline from './builder/PqlPipeline';
-import { initialData } from './builder/builder';
+import { convertPql, Operator, QueryData } from './builder/builder';
 import QuerySelector, { SelectorKind, SELECTOR_LOADER, SELECTOR_OPERATOR } from './selectors/QuerySelector';
-import { httpGetPqlLoader } from '../../../pql/loaders';
-import OperationConfig from './configurators/OperationConfig';
+import OperationConfig from './OperationConfig';
 
 interface QueryBuilder {
-  pql: Pql
+  queryData: QueryData;
 }
 
-const BUILDER = 'BUILDER';
-const SELECTOR = 'SELECTOR';
-const CONFIGURATOR = 'CONFIGURATOR';
+enum ViewState {
+  Builder,
+  Selector,
+  Configurator
+};
 
-type ViewState =
-  | typeof BUILDER
-  | typeof SELECTOR
-  | typeof CONFIGURATOR;
+const QueryBuilder = ({ queryData }: QueryBuilder): JSX.Element => {
+  const [view, setView] = useState<ViewState>(ViewState.Builder);
 
-const QueryBuilder = ({ pql }: QueryBuilder): JSX.Element => {
-  const [view, setView] = useState<ViewState>(BUILDER);
-
-  const [data, setData] = useState({...initialData});
+  const [data, setData] = useState({...queryData});
   const [selector, setSelector] = useState<SelectorKind>(SELECTOR_OPERATOR);
-  const [config, setConfig] = useState<SourceOperation>(httpGetPqlLoader(''));
+  const [configId, setConfigId] = useState('');
 
   const addSelectorAction = (selector: SelectorKind) => {
-    setView(SELECTOR);
+    setView(ViewState.Selector);
     setSelector(selector);
   };
-  const configureAction = () => setView(CONFIGURATOR);
-
-  const onSelectorClose = () => setView(BUILDER);
+  const configureAction = (id: string) => {
+    setConfigId(id);
+    setView(ViewState.Configurator);
+  };
+  const onClose = () => setView(ViewState.Builder);
 
   return (
     <div className='flex flex-col'>
@@ -49,15 +47,15 @@ const QueryBuilder = ({ pql }: QueryBuilder): JSX.Element => {
           <TooltipButton onClick={() => addSelectorAction(SELECTOR_OPERATOR)} className="ml-1" tooltip='Add operator'>
             <InlineIcon icon={chartBoxPlusOutline} width="20" />
           </TooltipButton>
-          <TooltipButton onClick={configureAction} className="ml-1" tooltip='Aggregate'>
+          <TooltipButton onClick={() => {}} className="ml-1" tooltip='Aggregate'>
             <InlineIcon icon={sourceFork} width="20" />
           </TooltipButton>
         </div>
       </div>
       <div className='p-3 shadow-sm relative bg-gray-100 flex-auto'>
-        { view === BUILDER && <PqlPipeline data={data} /> }
-        { view === SELECTOR && <QuerySelector kind={selector} onClose={onSelectorClose} /> }
-        { view === CONFIGURATOR && <OperationConfig /> }
+        { view === ViewState.Builder && <PqlPipeline data={data} onConfigClick={configureAction} /> }
+        { view === ViewState.Selector && <QuerySelector kind={selector} onClose={onClose} /> }
+        { view === ViewState.Configurator && <OperationConfig onClose={onClose} operator={data.operators[configId].operator} /> }
       </div>
     </div>
   );
