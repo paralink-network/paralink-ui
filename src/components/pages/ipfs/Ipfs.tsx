@@ -12,7 +12,7 @@ import 'brace/theme/github';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
 import { loadIPFSWithHash, runPqlApi, savePqlApi } from '../../../api/pql';
-import Error from '../../common/sub-pages/ErrorContainer';
+import ErrorContainer from '../../common/sub-pages/ErrorContainer';
 
 interface UrlParams {
   hash: string;
@@ -44,7 +44,7 @@ const Ipfs: React.FC<{}> = () => {
       .catch((err) => setError(err.message));
   }, [hash]);
 
-  return error.length > 0 ? <Error message={error} hash={hash} /> : (
+  return error.length > 0 ? <ErrorContainer message={error} hash={hash} /> : (
     <div className="container m-auto">
       <Grid>
         <Grid.Row>
