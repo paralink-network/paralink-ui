@@ -21,3 +21,12 @@ export const emptyPql: Pql = {
   psql_version: '0.1',
   sources: [],
 };
+
+
+export type RefreshCallback = () => void;
+
+export interface Operator {
+  title: string;
+  build: () => SourceOperation;
+  renderConfig: (refreshCallback: RefreshCallback) => JSX.Element;
+}
