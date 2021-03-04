@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pql } from '../../../state/pql/pql';
+import { Operator, OperatorKind, Pql } from '../../../state/pql/pql';
+import { createNewLoader, createNewOperator, onOperatorRemoveAction } from '../../../state/query-builder';
 import { QueryData } from './builder/builder';
 import PqlPipeline from './builder/PqlPipeline';
 import OperationConfig from './OperationConfig';
@@ -22,8 +23,8 @@ enum ViewState {
 const QueryController = ({ queryData, pql }: QueryController): JSX.Element => {
   const [view, setView] = useState<ViewState>(ViewState.Builder);
 
-  const [data] = useState({ ...queryData });
   const [configId, setConfigId] = useState('');
+  const [data, setData] = useState({ ...queryData });
   const [projectName, setProjectName] = useState(pql.name);
   const [selector, setSelector] = useState<SelectorKind>(SELECTOR_OPERATOR);
 
@@ -36,6 +37,15 @@ const QueryController = ({ queryData, pql }: QueryController): JSX.Element => {
     setView(ViewState.Configurator);
   };
   const onClose = (): void => setView(ViewState.Builder);
+  const addNewOperator = (opearator: Operator) => {
+    const [newData, operatorId] = opearator.kind === OperatorKind.Loader
+      ? createNewLoader(data, opearator)
+      : createNewOperator(data, data.sourceOrder[data.sourceOrder.length-1], opearator);
+
+    setData(newData);
+    setConfigId(operatorId);
+    setView(ViewState.Configurator);
+  }
 
   return (
     <div className="grid grid-cols-4 gap-0 h-full">
@@ -45,9 +55,9 @@ const QueryController = ({ queryData, pql }: QueryController): JSX.Element => {
       </div>
       <div className="flex flex-col">
         <QueryBuilder addSelectorAction={addSelectorAction} />
-        <div className="p-3 shadow-sm relative bg-gray-100 flex-auto">
-          {view === ViewState.Builder && <PqlPipeline data={data} onConfigClick={configureAction} />}
-          {view === ViewState.Selector && <QuerySelector kind={selector} onClose={onClose} />}
+        <div className="p-3 shadow-sm relative flex-auto">
+          {view === ViewState.Builder && <PqlPipeline data={data} setData={setData} onConfigClick={configureAction} />}
+          {view === ViewState.Selector && <QuerySelector kind={selector} onClose={onClose} addOperator={addNewOperator} />}
           {view === ViewState.Configurator && (
             <OperationConfig onClose={onClose} operator={data.operators[configId].operator} />
           )}
