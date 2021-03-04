@@ -1,10 +1,12 @@
 import React from 'react';
 import { GetIndexPqlOperator, OperatorStep } from '../../../../../state/pql/operators';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class GetIndexOperator implements Operator {
   title = 'Get index';
+
+  kind = OperatorKind.Operation;
 
   private params = 0;
 
@@ -20,14 +22,11 @@ export default class GetIndexOperator implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onChange = (value: number): void => {
-      this.params = value;
-      refresh();
-    };
+    const onChange = (value: number): number => this.params = value;
     return (
       <>
         <Label name="Index:" />
-        <Input value={this.params} onChange={onChange} type="number" />
+        <Input value={this.params} onChange={refresh(onChange)} type="number" />
       </>
     );
   }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { MathDirection, MathMethod, MathPqlOperator, OperatorStep } from '../../../../../state/pql/operators';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind } from '../../../../../state/pql/pql';
 
 export default class MathOperator implements Operator {
   title = 'Math';
+
+  kind = OperatorKind.Operation;
 
   private method: MathMethod = MathMethod.Add;
 

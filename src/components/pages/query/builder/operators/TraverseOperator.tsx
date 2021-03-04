@@ -1,9 +1,11 @@
 import React from 'react';
 import { OperatorStep, TraversePqlOperator } from '../../../../../state/pql/operators';
-import { Operator } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind } from '../../../../../state/pql/pql';
 
 export default class TraverseOperator implements Operator {
   title = 'Traverse';
+
+  kind = OperatorKind.Operation;
 
   private params: string[] = [];
 

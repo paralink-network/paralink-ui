@@ -1,10 +1,12 @@
 import React from 'react';
 import { Input, Label } from '../../../../common/Inputs';
 import { OperatorStep, QuerySqlPqlOperator, SqlMethod } from '../../../../../state/pql/operators';
-import { Operator } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind } from '../../../../../state/pql/pql';
 
 export default class QuerySqlOperator implements Operator {
   title = 'SQL query';
+
+  kind = OperatorKind.Operation;
 
   private method: SqlMethod = SqlMethod.None;
 

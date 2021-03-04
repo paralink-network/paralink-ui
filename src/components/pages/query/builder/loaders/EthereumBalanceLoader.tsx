@@ -1,10 +1,12 @@
 import React from 'react';
 import { BlockType, EthereumBalancePqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class implements Operator {
   title = 'Ethereum balance';
+
+  kind = OperatorKind.Loader;
 
   private address = '';
 
@@ -34,28 +36,19 @@ export default class implements Operator {
     };
   }
 
-  renderConfig(refreshCallback: RefreshCallback): JSX.Element {
-    const update = <T,>(fun: (value: T) => void) => (value: T) => {
-      fun(value);
-      refreshCallback();
-    };
-
-    const setAddress = (address: string): void => {
-      this.address = address;
-    };
-    const setChain = (chain: string): void => {
-      this.chain = chain;
-    };
+  renderConfig(refresh: RefreshCallback): JSX.Element {
+    const setChain = (chain: string): string => this.chain = chain;
+    const setAddress = (address: string): string => this.address = address;
 
     return (
       <>
         <div>
           <Label name="Address: " />
-          <Input value={this.address} onChange={update(setAddress)} className="w-full" />
+          <Input value={this.address} onChange={refresh(setAddress)} className="w-full" />
         </div>
         <div>
           <Label name="Chain: " />
-          <Input value={this.chain} onChange={update(setChain)} className="w-full" />
+          <Input value={this.chain} onChange={refresh(setChain)} className="w-full" />
         </div>
       </>
     );

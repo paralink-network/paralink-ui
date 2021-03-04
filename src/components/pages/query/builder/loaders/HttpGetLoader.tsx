@@ -1,10 +1,12 @@
 import React from 'react';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 import { HttpGetPqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 
 export default class implements Operator {
   title = 'Http Get';
+
+  kind = OperatorKind.Loader;
 
   private uri = '';
 
@@ -20,16 +22,13 @@ export default class implements Operator {
     };
   }
 
-  renderConfig(refreshCallback: RefreshCallback): JSX.Element {
-    const setUri = (uri: string): void => {
-      this.uri = uri;
-      refreshCallback();
-    };
+  renderConfig(refresh: RefreshCallback): JSX.Element {
+    const setUri = (uri: string): string => this.uri = uri;
 
     return (
       <>
         <Label name="Url: " />
-        <Input value={this.uri} onChange={setUri} className="w-full" />
+        <Input value={this.uri} onChange={refresh(setUri)} className="w-full" />
       </>
     );
   }

@@ -22,10 +22,16 @@ export const emptyPql: Pql = {
   sources: [],
 };
 
-export type RefreshCallback = () => void;
+export type RefreshCallback = <T>(fun: (value: T) => void) => (value: T) => void;
+
+export enum OperatorKind {
+  Loader,
+  Operation,
+}
 
 export interface Operator {
   title: string;
+  kind: OperatorKind;
   build: () => SourceOperation;
   renderConfig: (refreshCallback: RefreshCallback) => JSX.Element;
 }
