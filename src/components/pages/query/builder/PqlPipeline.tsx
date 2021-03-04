@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { QueryData } from './builder';
 import PqlSource from './PqlSource';
@@ -9,16 +9,25 @@ interface PqlPipeline {
 }
 
 const PqlPipeline = ({ data, onConfigClick }: PqlPipeline): JSX.Element => {
+  const [change, setChange] = useState(false);
+  const update = (): void => setChange(!change);
+  useEffect((): void => {}, [change]);
+
   const sourcesView = data.sourceOrder.map((sourceId) => {
     const { operators, title } = data.sources[sourceId];
     const operationItems = operators.map((operationId) => data.operators[operationId]);
+
+    const onTitleChange = (value: string) => {
+      data.sources[sourceId].title = value;
+      update();
+    };
 
     return (
       <PqlSource
         id={sourceId}
         key={sourceId}
         title={title}
-        onTitleChange={() => {}}
+        onTitleChange={onTitleChange}
         operators={operationItems}
         onConfigClick={onConfigClick}
       />
