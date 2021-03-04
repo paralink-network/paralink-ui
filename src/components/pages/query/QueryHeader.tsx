@@ -7,14 +7,19 @@ import reloadIcon from '@iconify-icons/mdi/reload';
 import { TooltipButton } from '../../common/Buttons';
 import { LabelInput } from '../../common/Inputs';
 
-const QueryHeader = (): JSX.Element => (
+interface QueryHeader {
+  projectName: string;
+  setProjectName: (value: string) => void;
+}
+
+const QueryHeader = ({ projectName, setProjectName }: QueryHeader): JSX.Element => (
   <div className="p-2 h-50 shadow-sm flex flex-column justify-between">
     <LabelInput
-      value="Project 1"
+      value={projectName}
       labelName="Project name"
       placeholder="Project name"
       className="mt-1 mb-1 relative rounded-md"
-      onChange={() => {}}
+      onChange={setProjectName}
     />
 
     <div className="mt-1 mb-1">
