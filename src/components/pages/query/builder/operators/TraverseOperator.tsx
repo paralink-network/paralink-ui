@@ -1,6 +1,6 @@
 import React from 'react';
-import { OperatorStep, TraversePqlOperator } from '../../../../../pql/operators';
-import { Operator } from '../../../../../pql/pql';
+import { OperatorStep, TraversePqlOperator } from '../../../../../state/pql/operators';
+import { Operator } from '../../../../../state/pql/pql';
 
 export default class TraverseOperator implements Operator {
   title = 'Traverse';

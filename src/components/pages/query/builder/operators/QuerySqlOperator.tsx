@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Label } from '../../../../common/Inputs';
-import { OperatorStep, QuerySqlPqlOperator, SqlMethod } from '../../../../../pql/operators';
-import { Operator } from '../../../../../pql/pql';
+import { OperatorStep, QuerySqlPqlOperator, SqlMethod } from '../../../../../state/pql/operators';
+import { Operator } from '../../../../../state/pql/pql';
 
 export default class QuerySqlOperator implements Operator {
   title = 'SQL query';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Operator } from '../../../pql/pql';
+import { Operator } from '../../../state/pql/pql';
 import QueryClosableContainer from './QueryClosableContainer';
 
 interface OperationConfig extends QueryClosableContainer {

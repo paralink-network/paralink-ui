@@ -1,7 +1,7 @@
 import React from 'react';
-import { LoaderMethods, SqlPqlLoader } from '../../../../../pql/loaders';
+import { LoaderMethods, SqlPqlLoader } from '../../../../../state/pql/loaders';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../pql/pql';
+import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class implements Operator {
   title = 'Postgres database';

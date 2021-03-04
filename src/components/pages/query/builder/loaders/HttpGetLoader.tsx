@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../pql/pql';
-import { HttpGetPqlLoader, LoaderMethods } from '../../../../../pql/loaders';
+import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
+import { HttpGetPqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 
 export default class implements Operator {
   title = 'Http Get';

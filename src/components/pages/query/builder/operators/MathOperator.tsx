@@ -1,7 +1,7 @@
 import React from 'react';
-import { MathDirection, MathMethod, MathPqlOperator, OperatorStep } from '../../../../../pql/operators';
+import { MathDirection, MathMethod, MathPqlOperator, OperatorStep } from '../../../../../state/pql/operators';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator } from '../../../../../pql/pql';
+import { Operator } from '../../../../../state/pql/pql';
 
 export default class MathOperator implements Operator {
   title = 'Math';

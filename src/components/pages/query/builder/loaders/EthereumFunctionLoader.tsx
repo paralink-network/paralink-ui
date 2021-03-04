@@ -1,7 +1,7 @@
 import React from 'react';
-import { BlockType, EthereumFunctionPqlLoader, LoaderMethods } from '../../../../../pql/loaders';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../pql/pql';
+import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
+import { BlockType, EthereumFunctionPqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 
 export default class implements Operator {
   title = 'Ethereum function';

@@ -1,7 +1,7 @@
 import React from 'react';
-import { GetIndexPqlOperator, OperatorStep } from '../../../../../pql/operators';
+import { GetIndexPqlOperator, OperatorStep } from '../../../../../state/pql/operators';
 import { Input, Label } from '../../../../common/Inputs';
-import { Operator, RefreshCallback } from '../../../../../pql/pql';
+import { Operator, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class GetIndexOperator implements Operator {
   title = 'Get index';

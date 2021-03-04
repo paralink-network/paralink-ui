@@ -6,7 +6,7 @@ import {
   LoaderMethods,
   PqlLoader,
   SqlPqlLoader,
-} from '../../../../pql/loaders';
+} from '../../../../state/pql/loaders';
 import {
   GetIndexPqlOperator,
   MathPqlOperator,
@@ -14,8 +14,8 @@ import {
   PqlOperator,
   TraversePqlOperator,
   QuerySqlPqlOperator,
-} from '../../../../pql/operators';
-import { Operator, Pql, SourceOperation } from '../../../../pql/pql';
+} from '../../../../state/pql/operators';
+import { Operator, Pql, SourceOperation } from '../../../../state/pql/pql';
 import GetIndexOperator from './operators/GetIndexOperator';
 import HttpGetOperator from './loaders/HttpGetLoader';
 import TraverseOperator from './operators/TraverseOperator';
