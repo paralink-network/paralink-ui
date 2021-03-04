@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { isConstructorDeclaration } from 'typescript';
-import { OperatorKind } from '../../../../state/pql/pql';
-import { onOperatorRemoveAction } from '../../../../state/query-builder';
-import { QueryData } from './builder';
+import { onOperatorRemoveAction, QueryData } from '../../../../state/query-builder';
 import OperationBody from './OperationBody';
 import PqlSource from './PqlSource';
 

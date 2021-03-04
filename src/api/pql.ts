@@ -1,4 +1,4 @@
-import { Pql } from '../pql/pql';
+import { Pql } from '../state/pql/pql';
 import { axiosInstance } from './api';
 
 interface PQLWithHash {

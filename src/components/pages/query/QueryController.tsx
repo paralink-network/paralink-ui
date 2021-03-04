@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Operator, OperatorKind, Pql } from '../../../state/pql/pql';
-import { createNewLoader, createNewOperator, onOperatorRemoveAction } from '../../../state/query-builder';
-import { QueryData } from './builder/builder';
+import { createNewLoader, createNewOperator, QueryData } from '../../../state/query-builder';
 import PqlPipeline from './builder/PqlPipeline';
 import OperationConfig from './OperationConfig';
 import QueryBuilder from './QueryBuilder';

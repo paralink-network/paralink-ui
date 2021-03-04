@@ -1,5 +1,5 @@
 import { Pql } from "../../../../state/pql/pql";
-import { QueryData } from "./builder";
+import { QueryData } from "../../../../state/query-builder";
 
 export const compile = (name: string, pqlVersion: string, data: QueryData): Pql => ({
   name,

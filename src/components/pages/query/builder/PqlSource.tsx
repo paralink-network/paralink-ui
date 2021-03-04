@@ -1,6 +1,6 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { ExtendedOperator } from './builder';
+import { ExtendedOperator } from '../../../../state/query-builder';
 import PqlOperation from './PqlOperation';
 
 interface PqlSource {

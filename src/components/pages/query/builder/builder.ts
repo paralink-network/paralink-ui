@@ -25,29 +25,7 @@ import HttpPostLoader from './loaders/HttpPostLoader';
 import EthereumBalanceLoader from './loaders/EthereumBalanceLoader';
 import EthereumFunctionLoader from './loaders/EthereumFunctionLoader';
 import PostgresLoader from './loaders/PostgresLoader';
-import { createNewOperator, createNewSource } from '../../../../state/query-builder';
-
-export interface ExtendedOperator {
-  id: string;
-  operator: Operator;
-}
-
-export interface ExtendedSource {
-  id: string;
-  title: string;
-  operators: string[];
-}
-
-export interface QueryData {
-  operators: { [key: string]: ExtendedOperator };
-  sources: { [key: string]: ExtendedSource };
-  sourceOrder: string[];
-
-  sourceIndex: number;
-  operatorIndex: number; 
-
-  aggregate?: Operator;
-}
+import { createNewOperator, createNewSource, QueryData } from '../../../../state/query-builder';
 
 const createMathOperator = (operation: MathPqlOperator): MathOperator =>
   new MathOperator(operation.method, operation.params, operation.direction);

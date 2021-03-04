@@ -1,7 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { ExtendedOperator } from './builder';
 import { OperatorKind } from '../../../../state/pql/pql';
+import { ExtendedOperator } from '../../../../state/query-builder';
 import OperationBody from './OperationBody';
 
 interface PqlOperation extends ExtendedOperator {

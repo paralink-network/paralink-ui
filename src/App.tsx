@@ -6,7 +6,7 @@ import Login from './components/pages/auth/Login';
 import Error404 from './components/pages/errors/Error404';
 import NavigationBar from './components/navigation/NavigationBar';
 import { ERROR_404_PAGE_ROUTE, LOGIN_PAGE_ROUTE, USER_ROUTES } from './components/routes';
-import "tailwindcss/tailwind.css"
+import 'tailwindcss/tailwind.css';
 import './App.scss';
 
 function App(): JSX.Element {
