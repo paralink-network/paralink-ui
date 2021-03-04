@@ -25,6 +25,7 @@ import HttpPostLoader from './loaders/HttpPostLoader';
 import EthereumBalanceLoader from './loaders/EthereumBalanceLoader';
 import EthereumFunctionLoader from './loaders/EthereumFunctionLoader';
 import PostgresLoader from './loaders/PostgresLoader';
+import { createNewOperator, createNewSource } from '../../../../state/query-builder';
 
 export interface ExtendedOperator {
   id: string;
@@ -41,6 +42,11 @@ export interface QueryData {
   operators: { [key: string]: ExtendedOperator };
   sources: { [key: string]: ExtendedSource };
   sourceOrder: string[];
+
+  sourceIndex: number;
+  operatorIndex: number; 
+
+  aggregate?: Operator;
 }
 
 const createMathOperator = (operation: MathPqlOperator): MathOperator =>
@@ -103,41 +109,27 @@ const convertPqlSourceOperationToOperator = (operation: SourceOperation): Operat
     : convertPqlOperationToOperator(<PqlOperator>operation);
 
 export const convertPql = (pql: Pql): QueryData => {
-  let operationIndex = 0;
-  const operators: { [key: string]: ExtendedOperator } = {};
-  const sources: { [key: string]: ExtendedSource } = {};
-  const sourceOrder: string[] = [];
+  let queryData = {...emptyQueryData};
+  let sourceId = '';
 
   for (let pipelineIndex = 0; pipelineIndex < pql.sources.length; pipelineIndex += 1) {
     const source = pql.sources[pipelineIndex];
-    const sourceId = `source-${pipelineIndex}`;
-    const sourceOperators: string[] = [];
+    [queryData, sourceId] = createNewSource(queryData, source.name);
 
-    for (let index = 0; index < source.pipeline.length; index += 1) {
-      const operation = source.pipeline[index];
-      const operationId = `operation-${operationIndex}`;
-
-      operators[operationId] = {
-        id: operationId,
-        operator: convertPqlSourceOperationToOperator(operation),
-      };
-      sourceOperators.push(operationId);
-      operationIndex += 1;
+    for (let operationIndex = 0; operationIndex < source.pipeline.length; operationIndex += 1) {
+      const operator = convertPqlSourceOperationToOperator(source.pipeline[operationIndex]);
+      [queryData,] = createNewOperator(queryData, sourceId, operator);
     }
-
-    sources[sourceId] = {
-      id: sourceId,
-      title: source.name,
-      operators: [...sourceOperators],
-    };
-    sourceOrder.push(sourceId);
   }
 
-  return { operators, sources, sourceOrder };
+  return queryData;
 };
 
 export const emptyQueryData: QueryData = {
   operators: {},
   sources: {},
   sourceOrder: [],
+
+  sourceIndex: 0,
+  operatorIndex: 0,
 };
