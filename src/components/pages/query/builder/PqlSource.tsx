@@ -7,17 +7,21 @@ interface PqlSource {
   id: string;
   title: string;
   operators: ExtendedOperator[];
-  onTitleChange: (value: string) => void;
+
+  onRun: (id: string) => void;
+  onRemove: (id: string) => void;
   onConfigClick: (id: string) => void;
+
+  onTitleChange: (value: string) => void;
 }
 
-const PqlSource = ({ id, title, operators, onTitleChange, onConfigClick }: PqlSource): JSX.Element => {
+const PqlSource = ({ id, title, operators, onTitleChange, onRun, onRemove, onConfigClick }: PqlSource): JSX.Element => {
   const operationView = operators.map((operator, index) => (
-    <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} />
+    <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} onRun={onRun} onRemove={onRemove} />
   ));
 
   return (
-    <div className="mb-5 border rounded pb-2 px-1 bg-yellow-200">
+    <div className="mb-5 border rounded pb-2 px-1">
       <input
         type="text"
         value={title}
@@ -27,7 +31,7 @@ const PqlSource = ({ id, title, operators, onTitleChange, onConfigClick }: PqlSo
       />
       <Droppable droppableId={id}>
         {(provided) => (
-          <ul {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: '30px' }}>
+          <ul {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: '10px' }}>
             {operationView}
             {provided.placeholder}
           </ul>

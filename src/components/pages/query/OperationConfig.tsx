@@ -16,7 +16,7 @@ const OperationConfig = ({ onClose, operator }: OperationConfig): JSX.Element =>
   }
   useEffect(() => {}, [refreshIndex]);
 
-  return <QueryClosableContainer onClose={onClose}>{operator.renderConfig(refresh)}</QueryClosableContainer>;
+  return <QueryClosableContainer onClose={onClose} submitButton>{operator.renderConfig(refresh)}</QueryClosableContainer>;
 };
 
 export default OperationConfig;
