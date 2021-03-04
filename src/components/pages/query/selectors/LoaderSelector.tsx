@@ -1,15 +1,33 @@
 import React from 'react';
+import { Operator } from '../../../../state/pql/pql';
+import EthereumBalanceLoader from '../builder/loaders/EthereumBalanceLoader';
+import EthereumFunctionLoader from '../builder/loaders/EthereumFunctionLoader';
+import HttpGetLoader from '../builder/loaders/HttpGetLoader';
+import HttpPostLoader from '../builder/loaders/HttpPostLoader';
+import PostgresLoader from '../builder/loaders/PostgresLoader';
 import QuerySelectorContainer from '../QueryClosableContainer';
 import SelectorButton from './SelectorButton';
 
-const LoaderSelector = ({ onClose }: QuerySelectorContainer): JSX.Element => (
-  <QuerySelectorContainer onClose={onClose}>
-    <SelectorButton>Http Get</SelectorButton>
-    <SelectorButton>Http Post</SelectorButton>
-    <SelectorButton>Ethereum Balance</SelectorButton>
-    <SelectorButton>Ethereum Function</SelectorButton>
-    <SelectorButton>SQL</SelectorButton>
-  </QuerySelectorContainer>
-);
+interface LoaderSelector extends QuerySelectorContainer {
+  addOperator: (operator: Operator) => void;
+}
+
+const LoaderSelector = ({ addOperator, onClose }: LoaderSelector): JSX.Element => {
+  const onHttpGetClick = () => addOperator(new HttpGetLoader(''));
+  const onHttpPostClick = () => addOperator(new HttpPostLoader('', {}));
+  const onPostgressClick = () => addOperator(new PostgresLoader('', ''));
+  const onEthBalanceClick = () => addOperator(new EthereumBalanceLoader('', '', 'latest'));
+  const onEthFunctionClick = () => addOperator(new EthereumFunctionLoader('', '', 'latest'));
+
+  return (
+    <QuerySelectorContainer onClose={onClose}>
+      <SelectorButton onClick={onHttpGetClick}>Http Get</SelectorButton>
+      <SelectorButton onClick={onHttpPostClick}>Http Post</SelectorButton>
+      <SelectorButton onClick={onPostgressClick}>Postgress</SelectorButton>
+      <SelectorButton onClick={onEthBalanceClick}>Ethereum Balance</SelectorButton>
+      <SelectorButton onClick={onEthFunctionClick}>Ethereum Function</SelectorButton>
+    </QuerySelectorContainer>
+  );
+};
 
 export default LoaderSelector;

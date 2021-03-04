@@ -1,14 +1,30 @@
 import React from 'react';
+import { MathMethod, SqlMethod } from '../../../../state/pql/operators';
+import { Operator } from '../../../../state/pql/pql';
+import GetIndexOperator from '../builder/operators/GetIndexOperator';
+import MathOperator from '../builder/operators/MathOperator';
+import QuerySqlOperator from '../builder/operators/QuerySqlOperator';
+import TraverseOperator from '../builder/operators/TraverseOperator';
 import QuerySelectorContainer from '../QueryClosableContainer';
 import SelectorButton from './SelectorButton';
 
-const OperationSelector = ({ onClose }: QuerySelectorContainer): JSX.Element => (
-  <QuerySelectorContainer onClose={onClose}>
-    <SelectorButton>Traverse</SelectorButton>
-    <SelectorButton>Get index</SelectorButton>
-    <SelectorButton>Math</SelectorButton>
-    <SelectorButton>SQL query</SelectorButton>
-  </QuerySelectorContainer>
-);
+interface OperatorSelection extends QuerySelectorContainer {
+  addOperator: (operator: Operator) => void;
+}
 
+const OperationSelector = ({ addOperator, onClose }: OperatorSelection): JSX.Element => {
+  const onGetIndexClick = () => addOperator(new GetIndexOperator(0));
+  const onTraverseClick = () => addOperator(new TraverseOperator(['']));
+  const onMathClick = () => addOperator(new MathOperator(MathMethod.Add, 0));
+  const onSqlQueryClick = () => addOperator(new QuerySqlOperator(SqlMethod.None, '', false));
+
+  return (
+    <QuerySelectorContainer onClose={onClose}>
+      <SelectorButton onClick={onTraverseClick}>Traverse</SelectorButton>
+      <SelectorButton onClick={onGetIndexClick}>Get index</SelectorButton>
+      <SelectorButton onClick={onMathClick}>Math</SelectorButton>
+      <SelectorButton onClick={onSqlQueryClick}>SQL query</SelectorButton>
+    </QuerySelectorContainer>
+  );
+};
 export default OperationSelector;
