@@ -22,7 +22,6 @@ export const emptyPql: Pql = {
   sources: [],
 };
 
-
 export type RefreshCallback = () => void;
 
 export interface Operator {

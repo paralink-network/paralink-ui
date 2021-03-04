@@ -1,9 +1,10 @@
 import React from 'react';
 import { OperatorStep, TraversePqlOperator } from '../../../../../pql/operators';
-import { Operator, RefreshCallback } from '../../../../../pql/pql';
+import { Operator } from '../../../../../pql/pql';
 
 export default class TraverseOperator implements Operator {
   title = 'Traverse';
+
   private params: string[] = [];
 
   constructor(params: string[]) {
@@ -18,11 +19,7 @@ export default class TraverseOperator implements Operator {
     };
   }
 
-  renderConfig(refresh: RefreshCallback) {
-    return (
-      <>
-        {this.params}
-      </>
-    );
+  renderConfig(): JSX.Element {
+    return <>{this.params}</>;
   }
 }

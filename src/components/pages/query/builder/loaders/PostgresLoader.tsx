@@ -7,6 +7,7 @@ export default class implements Operator {
   title = 'Postgres database';
 
   private uri = '';
+
   private query = '';
 
   constructor(uri: string, query: string) {
@@ -20,26 +21,25 @@ export default class implements Operator {
       query: this.query,
       step: 'extract',
       method: LoaderMethods.Postgres,
-    }
+    };
   }
 
-  renderConfig(refreshCallback: RefreshCallback) {
-
-    const setUri = (uri: string) => {
+  renderConfig(refreshCallback: RefreshCallback): JSX.Element {
+    const setUri = (uri: string): void => {
       this.uri = uri;
       refreshCallback();
-    }
+    };
 
-    const setQuery = (query: string) => {
+    const setQuery = (query: string): void => {
       this.query = query;
       refreshCallback();
-    }
-    
+    };
+
     return (
       <>
         <div>
-          <Label name='Url: '/>
-          <Input value={this.uri} onChange={setUri} className='w-full' />
+          <Label name="Url: " />
+          <Input value={this.uri} onChange={setUri} className="w-full" />
         </div>
         <div>
           <textarea value={this.query} onChange={(event) => setQuery(event.target.value)} />

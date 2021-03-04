@@ -5,38 +5,38 @@ import { Operator, RefreshCallback } from '../../../../../pql/pql';
 
 export default class implements Operator {
   title = 'Http Get';
+
   private uri = '';
+
   private params: ObjectParams = {};
 
   constructor(uri: string, params: ObjectParams) {
     this.uri = uri;
-    this.params = {...params};
+    this.params = { ...params };
   }
 
   build(): HttpPostPqlLoader {
     return {
       uri: this.uri,
-      params: {...this.params},
+      params: { ...this.params },
       step: 'extract',
       method: LoaderMethods.Post,
-    }
+    };
   }
 
-  renderConfig(refreshCallback: RefreshCallback) {
-
-    const setUri = (uri: string) => {
+  renderConfig(refreshCallback: RefreshCallback): JSX.Element {
+    const setUri = (uri: string): void => {
       this.uri = uri;
       refreshCallback();
-    }
-    
+    };
+
     return (
       <>
         <div>
-          <Label name='Url: '/>
-          <Input value={this.uri} onChange={setUri} className='w-full' />
+          <Label name="Url: " />
+          <Input value={this.uri} onChange={setUri} className="w-full" />
         </div>
-        <div>
-        </div>
+        <div />
       </>
     );
   }

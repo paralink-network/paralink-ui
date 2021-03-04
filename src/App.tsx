@@ -24,7 +24,7 @@ function App(): JSX.Element {
   return (
     <Router>
       <UserContext.Provider value={{ user, login, logout }}>
-        <div className='h-screen flex flex-col'>
+        <div className="h-screen flex flex-col">
           <NavigationBar />
           <div className="container-fluid flex-auto">
             <Switch>

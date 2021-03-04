@@ -8,7 +8,7 @@ export enum LoaderMethods {
   EthFunction = 'eth.function',
 }
 
-export type ObjectParams = {[key: string]: string};
+export type ObjectParams = { [key: string]: string };
 
 interface DefaultPqlLoader {
   step: string;
@@ -21,7 +21,7 @@ export interface HttpGetPqlLoader extends DefaultPqlLoader {
 }
 
 export interface HttpPostPqlLoader extends HttpGetPqlLoader {
-  params: ObjectParams;// TODO ensure string value is awailable!
+  params: ObjectParams; // TODO ensure string value is awailable!
 }
 
 // Sql loaders
@@ -59,4 +59,3 @@ export type PqlLoader =
   | SqlPqlLoader
   | EthereumBalancePqlLoader
   | EthereumFunctionPqlLoader;
-

@@ -5,7 +5,8 @@ import { Operator, RefreshCallback } from '../../../../../pql/pql';
 
 export default class GetIndexOperator implements Operator {
   title = 'Get index';
-  private params: number = 0;
+
+  private params = 0;
 
   constructor(params: number) {
     this.params = params;
@@ -18,15 +19,15 @@ export default class GetIndexOperator implements Operator {
     };
   }
 
-  renderConfig(refresh: RefreshCallback) {
-    const onChange = (value: number) => {
+  renderConfig(refresh: RefreshCallback): JSX.Element {
+    const onChange = (value: number): void => {
       this.params = value;
       refresh();
-    }
+    };
     return (
       <>
-        <Label name='Index:' />
-        <Input value={this.params} onChange={onChange} type='number' />
+        <Label name="Index:" />
+        <Input value={this.params} onChange={onChange} type="number" />
       </>
     );
   }

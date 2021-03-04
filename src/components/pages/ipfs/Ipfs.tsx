@@ -38,6 +38,8 @@ const Ipfs: React.FC<{}> = () => {
   useEffect(() => {
     loadIPFSWithHash(hash)
       .then((res) => {
+        console.log(res.pql);
+        console.log(typeof res.pql);
         editor.current.jsonEditor.set(res.pql);
         setResultContent(res.hash);
       })
