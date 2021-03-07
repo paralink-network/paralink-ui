@@ -22,6 +22,8 @@ export const emptyPql: Pql = {
   sources: [],
 };
 
+// type EmptyRefreshCallBack = (fun: () => void) => () => void;
+// type ValueRefreshCallBack = <T>(fun: (value: T) => void) => (value: T) => void;
 export type RefreshCallback = <T>(fun: (value: T) => void) => (value: T) => void;
 
 export enum OperatorKind {
