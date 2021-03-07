@@ -25,7 +25,7 @@ interface Label {
 }
 
 export const Label = ({ name, className = '' }: Label): JSX.Element => (
-  <label className={`text-lg font-medium text-gray-700 mr-3 ${className}`} htmlFor="">
+  <label className={`my-auto text-lg font-medium text-gray-700 mr-3 ${className}`} htmlFor="">
     {name}
   </label>
 );
@@ -46,3 +46,55 @@ export const LabelInput = ({
     <Input value={value} onChange={onChange} placeholder={placeholder} />
   </div>
 );
+
+interface Checkbox {
+  value: boolean
+  onChange: () => void
+}
+
+export const Checkbox = ({ value, onChange }: Checkbox) => (
+  <input 
+    type="checkbox" 
+    checked={value}
+    onChange={onChange}
+    className="focus:ring-indigo-500 focus:border-indigo-500 inline-block sm:text-sm border-gray-300 rounded-md"
+  />
+);
+
+interface Textarea {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const Textarea = ({ value, onChange }: Textarea) => (
+  <textarea
+    value={value}
+    onChange={(event) => onChange(event.target.value)}
+    className="focus:ring-indigo-500 focus:border-indigo-500 inline-block sm:text-sm border-gray-300 rounded-md"
+  />
+)
+
+interface Select {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const Select: React.FC<Select> = ({ value, onChange, children }) => (
+  <select 
+    value={value}
+    onChange={(event) => onChange(event.target.value)}
+    className="flex-auto"
+  >
+    {children}
+  </select>
+);
+
+interface Option {
+  value: string;
+}
+
+export const Option: React.FC<Option> = ({ value, children }) => (
+  <option value={value}>
+    {children}
+  </option>
+)
