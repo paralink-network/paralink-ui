@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoaderMethods, SqlPqlLoader } from '../../../../../state/pql/loaders';
-import { Input, Label } from '../../../../common/Inputs';
+import { Input, Label, Textarea } from '../../../../common/Inputs';
 import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class implements Operator {
@@ -32,12 +32,13 @@ export default class implements Operator {
 
     return (
       <>
-        <div>
+        <div className="mt-3 flex flex-col">
           <Label name="Url: " />
           <Input value={this.uri} onChange={refresh(setUri)} className="w-full" />
         </div>
-        <div>
-          <textarea value={this.query} onChange={refresh((event) => setQuery(event.target.value))} />
+        <div className="mt-3 flex flex-col">
+          <Label name="Query:" />
+          <Textarea value={this.query} onChange={refresh(setQuery)} />
         </div>
       </>
     );

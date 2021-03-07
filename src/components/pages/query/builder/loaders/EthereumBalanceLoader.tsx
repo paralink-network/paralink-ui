@@ -12,11 +12,11 @@ export default class implements Operator {
 
   private chain = '';
 
-  private block: BlockType = 'latest';
+  private block?: number;
 
   private numberConfirmation?: number;
 
-  constructor(address: string, chain: string, block: BlockType, numberConfirmation?: number) {
+  constructor(address: string, chain: string, block?: number, numberConfirmation?: number) {
     this.address = address;
     this.chain = chain;
     this.block = block;
@@ -28,7 +28,7 @@ export default class implements Operator {
       address: this.address,
       chain: this.chain,
       params: {
-        block: this.block,
+        block: this.block ? this.block : 'latest',
         num_confirmations: this.numberConfirmation,
       },
       step: 'extract',
@@ -39,16 +39,26 @@ export default class implements Operator {
   renderConfig(refresh: RefreshCallback): JSX.Element {
     const setChain = (chain: string): string => this.chain = chain;
     const setAddress = (address: string): string => this.address = address;
+    const setBlock = (block: number) => this.block = block;
+    const setNumberConfirmation = (numberConfirmation: number) => this.numberConfirmation = numberConfirmation;
 
     return (
       <>
-        <div>
-          <Label name="Address: " />
+        <div className="mt-3 flex flex-col">
+          <Label name="Address:" />
           <Input value={this.address} onChange={refresh(setAddress)} className="w-full" />
         </div>
-        <div>
-          <Label name="Chain: " />
+        <div className="mt-3 flex flex-col">
+          <Label name="Chain:" />
           <Input value={this.chain} onChange={refresh(setChain)} className="w-full" />
+        </div>
+        <div className="mt-3 flex flex-col">
+          <Label name="Block:" />
+          <Input value={this.block} type="number" onChange={refresh(setBlock)} className="w-full" />
+        </div>
+        <div className="mt-3 flex flex-col">
+          <Label name="Number confirmation:" />
+          <Input value={this.numberConfirmation} type="number" onChange={refresh(setNumberConfirmation)} className="w-full" />
         </div>
       </>
     );

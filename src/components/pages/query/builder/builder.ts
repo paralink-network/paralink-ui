@@ -37,14 +37,14 @@ const createHttpPostOperator = ({ uri, params }: HttpPostPqlLoader): HttpPostLoa
 const createPostgressOperator = ({ uri, query }: SqlPqlLoader): PostgresLoader => new PostgresLoader(uri, query);
 
 const createEthereumBalanceOperator = ({ address, chain, params }: EthereumBalancePqlLoader): EthereumBalanceLoader =>
-  new EthereumBalanceLoader(address, chain, params.block, params.num_confirmations);
+  new EthereumBalanceLoader(address, chain, params.block === 'latest' ? undefined : params.block, params.num_confirmations);
 
 const createEthereumFunctionOperator = ({
   address,
   chain,
   params,
 }: EthereumFunctionPqlLoader): EthereumFunctionLoader =>
-  new EthereumFunctionLoader(address, chain, params.block, params.num_confirmations);
+  new EthereumFunctionLoader(address, chain, params.function, params.args, params.block === 'latest' ? undefined : params.block, params.num_confirmations);
 
 const convertPqlOperationToOperator = (operation: PqlOperator): Operator => {
   console.log('Operation: ', operation);

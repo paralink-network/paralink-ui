@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input, Label } from '../../../../common/Inputs';
+import { Checkbox, Input, Label, Option, Select, Textarea } from '../../../../common/Inputs';
 import { OperatorStep, QuerySqlPqlOperator, SqlMethod } from '../../../../../state/pql/operators';
-import { Operator, OperatorKind } from '../../../../../state/pql/pql';
+import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 
 export default class QuerySqlOperator implements Operator {
   title = 'SQL query';
@@ -29,25 +29,29 @@ export default class QuerySqlOperator implements Operator {
     };
   }
 
-  renderConfig(): JSX.Element {
+  renderConfig(refresh: RefreshCallback): JSX.Element {
+    const onQueryChange = (query: string) => this.query = query;
+    const onMethodChange = (method: string): SqlMethod => this.method = method as SqlMethod;
+    const onResultChange = () => this.result = !this.result;
+
     return (
       <>
-        <div>
+        <div className="flex flex-col">
           <Label name="Select SQL method:" />
-          <select>
-            <option>List</option>
-            <option>Dictionary</option>
-            <option>Json</option>
-            <option>None</option>
-          </select>
+          <Select value={this.method} onChange={refresh(onMethodChange)}>
+            <Option value={SqlMethod.None}>None</Option>
+            <Option value={SqlMethod.List}>List</Option>
+            <Option value={SqlMethod.Dict}>Dictionary</Option>
+            <Option value={SqlMethod.Json}>Json</Option>
+          </Select>
         </div>
-        <div>
+        <div className="mt-3 flex flex-col">
           <Label name="Query:" />
-          <textarea value={this.query} onChange={() => {}} />
+          <Textarea value={this.query} onChange={refresh(onQueryChange)} />
         </div>
-        <div>
+        <div className="mt-3">
           <Label name="Show result:" />
-          <Input type="checkbox" value={this.result} onChange={() => {}} />
+          <Checkbox value={this.result} onChange={() => refresh(onResultChange)(undefined)} />
         </div>
       </>
     );

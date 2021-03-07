@@ -14,10 +14,10 @@ interface LoaderSelector extends QuerySelectorContainer {
 
 const LoaderSelector = ({ addOperator, onClose }: LoaderSelector): JSX.Element => {
   const onHttpGetClick = () => addOperator(new HttpGetLoader(''));
-  const onHttpPostClick = () => addOperator(new HttpPostLoader('', {}));
+  const onHttpPostClick = () => addOperator(new HttpPostLoader('', {"": ""}));
   const onPostgressClick = () => addOperator(new PostgresLoader('', ''));
-  const onEthBalanceClick = () => addOperator(new EthereumBalanceLoader('', '', 'latest'));
-  const onEthFunctionClick = () => addOperator(new EthereumFunctionLoader('', '', 'latest'));
+  const onEthBalanceClick = () => addOperator(new EthereumBalanceLoader('', '', undefined));
+  const onEthFunctionClick = () => addOperator(new EthereumFunctionLoader('', '', '', ['']));
 
   return (
     <QuerySelectorContainer onClose={onClose}>
