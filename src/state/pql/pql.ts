@@ -1,3 +1,4 @@
+import { EOPNOTSUPP } from 'constants';
 import { PqlAggregation } from './aggregators';
 import { PqlLoader } from './loaders';
 import { PqlOperator } from './operators';
@@ -31,9 +32,16 @@ export enum OperatorKind {
   Operation,
 }
 
-export interface Operator {
+interface BaseOperator {
   title: string;
   kind: OperatorKind;
-  build: () => SourceOperation;
   renderConfig: (refreshCallback: RefreshCallback) => JSX.Element;
+}
+
+export interface Operator extends BaseOperator {
+  build: () => SourceOperation;
+}
+
+export interface OutsideOperator extends BaseOperator {
+  build: () => PqlAggregation;
 }
