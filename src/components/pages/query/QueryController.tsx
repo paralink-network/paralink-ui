@@ -78,13 +78,16 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
     setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
   
   const run = (): Promise<void> =>
-    runPqlApi(toPql(pql))
+    Promise.resolve()
+      .then(() => compileToPql())
+      .then(() => runPqlApi(toPql(pql)))
       .then(setResult)
       .catch((err) => setResult(err.message))
       .finally(() => setShowResult(true));
 
   const save = (): Promise<void> =>
-    savePqlApi(toPql(pql))
+    Promise.resolve()
+      .then(() => savePqlApi(toPql(pql)))
       .then(setResult)
       .catch((err) => setResult(err.message))
       .finally(() => setShowResult(true));
