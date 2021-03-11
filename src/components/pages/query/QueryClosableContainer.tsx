@@ -16,7 +16,7 @@ const QueryClosableContainer: React.FC<QueryClosableContainer> = ({ onClose, chi
         <InlineIcon icon={arrowLeft} />
       </TooltipButton>
     </div>
-    {children}(
+    {children}
     {submitButton && (
       <div className="flex justify-center mt-3">
         <Button color="green" onClick={onClose}>
@@ -24,7 +24,6 @@ const QueryClosableContainer: React.FC<QueryClosableContainer> = ({ onClose, chi
         </Button>
       </div>
     )}
-    )
   </div>
 );
 
