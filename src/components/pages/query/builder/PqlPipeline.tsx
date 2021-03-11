@@ -59,18 +59,18 @@ interface PqlPipeline {
 }
 
 const PqlPipeline = ({ data, setData, onConfigClick }: PqlPipeline): JSX.Element => {
-  const [change, setChange] = useState(false);
-  const update = (): void => setChange(!change);
-  useEffect((): void => {}, [change]);
-
   const sourcesView = data.sourceOrder.map((sourceId) => {
     const { operators, title } = data.sources[sourceId];
     const operationItems = operators.map((operationId) => data.operators[operationId]);
 
-    const onTitleChange = (value: string) => {
-      data.sources[sourceId].title = value;
-      update();
-    };
+    const onTitleChange = (value: string) => setData({...data,
+      sources: {...data.sources,
+        [sourceId]: {...data.sources[sourceId],
+          title: value
+        }
+      }
+    });
+    
     const onRemove = (id: string) => 
       setData(onOperatorRemoveAction(data, sourceId, id));
 
@@ -88,13 +88,17 @@ const PqlPipeline = ({ data, setData, onConfigClick }: PqlPipeline): JSX.Element
     );
   });
 
+  const removeAggregation = () => setData({...data, aggregate: undefined});
+
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd(data, setData)}>{sourcesView}</DragDropContext>
       {data.aggregate && 
-        <div className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between`}>
-          Aggregare
-          <OperationBody onRun={() => {}} onRemove={() => {}} onConfig={() => {}} />
+        <div className="mb-5 rounded pb-2 px-1">
+          <div className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between`}>
+            Aggregate
+            <OperationBody onRun={() => {}} onRemove={removeAggregation} onConfig={() => onConfigClick('aggregate')} />
+          </div>
         </div>
       }
     </div>
