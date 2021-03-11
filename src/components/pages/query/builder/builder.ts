@@ -26,6 +26,8 @@ import EthereumBalanceLoader from './loaders/EthereumBalanceLoader';
 import EthereumFunctionLoader from './loaders/EthereumFunctionLoader';
 import PostgresLoader from './loaders/PostgresLoader';
 import { createNewOperator, createNewSource, QueryData } from '../../../../state/query-builder';
+import AggregatorOperator from './operators/AggregateOperator';
+import { AggregationMethods } from '../../../../state/pql/aggregators';
 
 const createMathOperator = (operation: MathPqlOperator): MathOperator =>
   new MathOperator(operation.method, operation.params, operation.direction);
@@ -98,6 +100,11 @@ export const convertPql = (pql: Pql): QueryData => {
       const operator = convertPqlSourceOperationToOperator(source.pipeline[operationIndex]);
       [queryData,] = createNewOperator(queryData, sourceId, operator);
     }
+  }
+  if (pql.aggregate) {
+    queryData.aggregate = pql.aggregate.method === AggregationMethods.Query
+      ? new AggregatorOperator(pql.aggregate.method, pql.aggregate.query, pql.aggregate.params)
+      : new AggregatorOperator(pql.aggregate.method)
   }
 
   return queryData;

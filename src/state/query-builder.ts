@@ -1,4 +1,6 @@
-import { Operator, OperatorKind } from './pql/pql';
+import AggregatorOperator from '../components/pages/query/builder/operators/AggregateOperator';
+import { AggregationMethods, AGGREGATOR_CONFIG } from './pql/aggregators';
+import { Operator, OperatorKind, OutsideOperator } from './pql/pql';
 
 export interface ExtendedOperator {
   id: string;
@@ -19,7 +21,7 @@ export interface QueryData {
   sourceIndex: number;
   operatorIndex: number;
 
-  aggregate?: Operator;
+  aggregate?: OutsideOperator;
 }
 
 const removeSource = (data: QueryData, sourceId: string): QueryData => {
@@ -93,3 +95,11 @@ export const createNewLoader = (data: QueryData, operator: Operator, title = '')
   const [sourceData, sourceId] = createNewSource(data, title);
   return createNewOperator(sourceData, sourceId, operator);
 };
+
+export const createNewAggregator = (data: QueryData): [QueryData, string] => {
+  return [{...data, 
+      aggregate: new AggregatorOperator(AggregationMethods.Max)
+    }, 
+    AGGREGATOR_CONFIG
+  ];
+}

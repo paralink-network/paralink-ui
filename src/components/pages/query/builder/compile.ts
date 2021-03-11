@@ -10,5 +10,6 @@ export const compile = (name: string, pqlVersion: string, data: QueryData): Pql 
       pipeline: data.sources[sourceId].operators
         .map((operatorId) => 
           data.operators[operatorId].operator.build())
-    }))
+    })),
+    aggregate: data.aggregate ? data.aggregate.build() : undefined,
 });
