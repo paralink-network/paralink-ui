@@ -13,7 +13,7 @@ export const loadIPFSWithHash = (hash: string): Promise<PQLWithHash> =>
 
 // TODO Move those two interfaces somewhere
 interface Result {
-  result: string;
+  result: any;
 }
 
 interface Success {
@@ -26,7 +26,11 @@ const resolvePqlApiAction = <Res>(endpoint: string, pql: Pql): Promise<Res> =>
     .then((res) => res.data);
 
 export const runPqlApi = (pql: Pql): Promise<string> =>
-  resolvePqlApiAction<Result>('pql/test', pql).then((res) => res.result);
+  Promise.resolve()
+    .then(() => resolvePqlApiAction<Result>('pql/test', pql))
+    .then((res) => JSON.stringify(res.result));
 
 export const savePqlApi = (pql: Pql): Promise<string> =>
-  resolvePqlApiAction<Success>('ipfs/save_pql', pql).then((res) => res.success);
+  Promise.resolve()
+    .then(() => resolvePqlApiAction<Success>('ipfs/save_pql', pql))
+    .then((res) => res.success);
