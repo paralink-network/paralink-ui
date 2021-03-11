@@ -8,16 +8,16 @@ interface PqlSource {
   title: string;
   operators: ExtendedOperator[];
 
-  onRun: (id: string) => void;
   onRemove: (id: string) => void;
   onConfigClick: (id: string) => void;
+  onRun: (sourceId: string) => (operatorId: string) => void;
 
   onTitleChange: (value: string) => void;
 }
 
 const PqlSource = ({ id, title, operators, onTitleChange, onRun, onRemove, onConfigClick }: PqlSource): JSX.Element => {
   const operationView = operators.map((operator, index) => (
-    <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} onRun={onRun} onRemove={onRemove} />
+    <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} onRun={onRun(id)} onRemove={onRemove} />
   ));
 
   return (

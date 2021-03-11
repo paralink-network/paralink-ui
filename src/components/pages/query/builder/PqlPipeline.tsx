@@ -56,9 +56,11 @@ interface PqlPipeline {
   data: QueryData;
   setData: UpdateData;
   onConfigClick: (id: string) => void;
+  onRun: () => void;
+  partialRun: (sourceId: string) => (operatorId: string) => void;
 }
 
-const PqlPipeline = ({ data, setData, onConfigClick }: PqlPipeline): JSX.Element => {
+const PqlPipeline = ({ data, setData, onConfigClick, onRun, partialRun }: PqlPipeline): JSX.Element => {
   const sourcesView = data.sourceOrder.map((sourceId) => {
     const { operators, title } = data.sources[sourceId];
     const operationItems = operators.map((operationId) => data.operators[operationId]);
@@ -81,7 +83,7 @@ const PqlPipeline = ({ data, setData, onConfigClick }: PqlPipeline): JSX.Element
         title={title}
         onTitleChange={onTitleChange}
         operators={operationItems}
-        onRun={() => {}}
+        onRun={partialRun}
         onRemove={onRemove}
         onConfigClick={onConfigClick}
       />
@@ -97,7 +99,7 @@ const PqlPipeline = ({ data, setData, onConfigClick }: PqlPipeline): JSX.Element
         <div className="mb-5 rounded pb-2 px-1">
           <div className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between`}>
             Aggregate
-            <OperationBody onRun={() => {}} onRemove={removeAggregation} onConfig={() => onConfigClick('aggregate')} />
+            <OperationBody onRun={onRun} onRemove={removeAggregation} onConfig={() => onConfigClick('aggregate')} />
           </div>
         </div>
       }

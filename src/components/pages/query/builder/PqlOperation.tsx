@@ -7,8 +7,8 @@ import OperationBody from './OperationBody';
 interface PqlOperation extends ExtendedOperator {
   index: number;
   onRun: (id: string) => void;
-  onConfigClick: (id: string) => void;
   onRemove: (id: string) => void;
+  onConfigClick: (id: string) => void;
 }
 
 const PqlOperation = ({ id, index, operator, onConfigClick, onRemove, onRun }: PqlOperation): JSX.Element => (
