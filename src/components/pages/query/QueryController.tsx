@@ -4,7 +4,7 @@ import { AGGREGATOR_CONFIG } from '../../../state/pql/aggregators';
 import { Operator, OperatorKind, Pql } from '../../../state/pql/pql';
 import { createNewAggregator, createNewLoader, createNewOperator, QueryData } from '../../../state/query-builder';
 import { convertPql } from './builder/builder';
-import { compile } from './builder/compile';
+import { compile, partialCompile } from './builder/compile';
 import PqlPipeline from './builder/PqlPipeline';
 import OperationConfig from './OperationConfig';
 import QueryBase from './QueryBase';
@@ -85,6 +85,19 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
       .catch((err) => setResult(err.message))
       .finally(() => setShowResult(true));
 
+  const partialRun = (sourceId: string) => async (operatorId: string): Promise<void> => {
+    try {
+      const compiledPql = partialCompile(projectName, pqlData.psql_version, data, sourceId, operatorId);
+      const result = await runPqlApi(compiledPql);
+      setPql(fromPql(compiledPql));
+      setResult(result);
+    } catch (error) {
+      setResult(error.message);
+    } finally {
+      setShowResult(true);
+    }
+  }
+
   const save = (): Promise<void> =>
     Promise.resolve()
       .then(() => savePqlApi(toPql(pql)))
@@ -115,7 +128,7 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
       <div className="flex flex-col">
         <QueryBuilderHeader addSelectorAction={addSelectorAction} addOrConfigAggregatorAction={addOrConfigAggregator} />
         <div className="p-3 shadow-sm relative flex-auto">
-          {view === ViewState.Builder && <PqlPipeline data={data} setData={setData} onConfigClick={configureAction} />}
+          {view === ViewState.Builder && <PqlPipeline data={data} setData={setData} onConfigClick={configureAction} onRun={run} partialRun={partialRun} />}
           {view === ViewState.Selector && <QuerySelector kind={selector} onClose={onClose} addOperator={addNewOperator} />}
           {view === ViewState.Configurator && (
             <OperationConfig onClose={onClose} operator={configId === AGGREGATOR_CONFIG ? data.aggregate! : data.operators[configId].operator} />
