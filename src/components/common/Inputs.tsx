@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Input {
   value: any;
-  onChange: (value: any) => void;
+  onChange: (value: string) => void;
 
   type?: string;
   className?: string;

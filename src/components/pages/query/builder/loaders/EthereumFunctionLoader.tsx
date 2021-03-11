@@ -50,8 +50,8 @@ export default class implements Operator {
     const setChain = (chain: string): string => this.chain = chain;
     const setFunction = (fun: string): string => this.fun = fun;
     const setAddress = (address: string): string => this.address = address;
-    const setBlock = (block: number) => this.block = block;
-    const setNumberConfirmation = (numberConfirmation: number) => this.numberConfirmation = numberConfirmation;
+    const setBlock = (block: string) => this.block = parseInt(block);
+    const setNumberConfirmation = (numberConfirmation: string) => this.numberConfirmation = parseInt(numberConfirmation);
 
     const onItemAdd = (): string[] => this.args = [...this.args, ''];
     const onItemRemove = (): string[] => this.args.splice(-1, 1);

@@ -32,7 +32,7 @@ export default class MathOperator implements Operator {
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
     const onMethodChange = (method: string) => this.method = method as MathMethod;
-    const onConstantChange = (value: number): number => this.params = value;
+    const onConstantChange = (value: string): number => this.params = parseFloat(value);
     const onDirectionChange = (): boolean => this.direction = !this.direction;
 
     return (
