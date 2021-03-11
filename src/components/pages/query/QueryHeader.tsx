@@ -22,14 +22,14 @@ interface QueryHeader {
 }
 
 const QueryHeader = ({
-  projectName,
-  setProjectName,
   showResult,
-  onResultCodeSwitch,
+  projectName,
   onRun,
   onSave,
   onBuild,
   onCompile,
+  setProjectName,
+  onResultCodeSwitch,
 }: QueryHeader): JSX.Element => (
   <div className="p-2 h-50 shadow-sm flex flex-column justify-between">
     <LabelInput

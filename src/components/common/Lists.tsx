@@ -7,7 +7,7 @@ interface ListHeaderAddRemove {
   onRemove: () => void;
 }
 
-export const ListHeaderAddRemove = ({ title, onAdd, onRemove }: ListHeaderAddRemove) => (
+export const ListHeaderAddRemove = ({ title, onAdd, onRemove }: ListHeaderAddRemove): JSX.Element => (
   <div className="flex flex-row justify-between mt-3">
     <Label name={title} />
 

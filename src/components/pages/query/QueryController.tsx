@@ -37,7 +37,7 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   const [projectName, setProjectName] = useState(pqlData.name);
   const [selector, setSelector] = useState<SelectorKind>(SELECTOR_OPERATOR);
 
-  const switchCodeResult = () => setShowResult(!showResult);
+  const switchCodeResult = (): void => setShowResult(!showResult);
   const addSelectorAction = (selected: SelectorKind): void => {
     setView(ViewState.Selector);
     setSelector(selected);
@@ -88,9 +88,9 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   const partialRun = (sourceId: string) => async (operatorId: string): Promise<void> => {
     try {
       const compiledPql = partialCompile(projectName, pqlData.psql_version, data, sourceId, operatorId);
-      const result = await runPqlApi(compiledPql);
+      const resultRes = await runPqlApi(compiledPql);
       setPql(fromPql(compiledPql));
-      setResult(result);
+      setResult(resultRes);
     } catch (error) {
       setResult(error.message);
     } finally {
