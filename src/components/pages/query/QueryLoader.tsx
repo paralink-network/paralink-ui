@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { loadIPFSWithHash } from '../../../api/pql';
 import { Pql, emptyPql } from '../../../state/pql/pql';
+import { emptyQueryData } from '../../../state/query-builder';
 import ErrorContainer from '../../common/sub-pages/ErrorContainer';
 import Loading from '../../common/sub-pages/Loading';
-import { convertPql, emptyQueryData } from './builder/builder';
+import { convertPql } from './builder/builder';
 import QueryController from './QueryController';
 
 interface UrlParams {
@@ -15,25 +16,23 @@ const QueryLoader = (): JSX.Element => {
   const { hash } = useParams<UrlParams>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [pql, setPql] = useState<Pql>({...emptyPql});
+  const [pql, setPql] = useState<Pql>({ ...emptyPql });
   const [queryData, setQueryData] = useState({ ...emptyQueryData });
 
   useEffect(() => {
-    const load = async () => {
+    const load = async (): Promise<void> => {
       try {
         setIsLoading(true);
         const res = await loadIPFSWithHash(hash);
         const data = convertPql(res.pql);
         setPql(res.pql);
         setQueryData(data);
-      } 
-      catch(error) {
-        setError(error.message);
-      }
-      finally {
+      } catch (errorRes) {
+        setError(errorRes.message);
+      } finally {
         setIsLoading(false);
       }
-    }
+    };
     load();
   }, [hash]);
 

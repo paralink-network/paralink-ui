@@ -9,7 +9,7 @@ interface QueryClosableContainer {
   submitButton?: boolean;
 }
 
-const QueryClosableContainer: React.FC<QueryClosableContainer> = ({ onClose, submitButton=false, children }) => (
+const QueryClosableContainer: React.FC<QueryClosableContainer> = ({ onClose, submitButton = false, children }) => (
   <div className="flex flex-col">
     <div className="mb-3">
       <TooltipButton className="rounded-full" onClick={onClose} tooltip="Back">
@@ -17,11 +17,13 @@ const QueryClosableContainer: React.FC<QueryClosableContainer> = ({ onClose, sub
       </TooltipButton>
     </div>
     {children}
-    {submitButton && 
-      <div className='flex justify-center mt-3'>
-        <Button color="green" onClick={onClose}>Submit</Button>
+    {submitButton && (
+      <div className="flex justify-center mt-3">
+        <Button color="green" onClick={onClose}>
+          Submit
+        </Button>
       </div>
-    }
+    )}
   </div>
 );
 

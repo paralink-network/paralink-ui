@@ -44,7 +44,9 @@ const Ipfs: React.FC<{}> = () => {
       .catch((err) => setError(err.message));
   }, [hash]);
 
-  return error.length > 0 ? <ErrorContainer message={error} hash={hash} /> : (
+  return error.length > 0 ? (
+    <ErrorContainer message={error} hash={hash} />
+  ) : (
     <div className="container m-auto">
       <Grid>
         <Grid.Row>

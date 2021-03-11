@@ -11,7 +11,7 @@ interface OperationBody {
   onRemove: () => void;
 }
 
-const OperationBody = ({onRemove, onConfig, onRun}: OperationBody) => (
+const OperationBody = ({ onRemove, onConfig, onRun }: OperationBody) => (
   <div className="flex flex-row">
     <TooltipButton className="rounded-full ml-1" color="green" tooltip="Run" onClick={onRun}>
       <InlineIcon icon={arrowRightDropCircleOutline} />

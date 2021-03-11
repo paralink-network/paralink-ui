@@ -48,9 +48,10 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   };
   const onClose = (): void => setView(ViewState.Builder);
   const addNewOperator = (opearator: Operator): void => {
-    const [newData, operatorId] = opearator.kind === OperatorKind.Loader
-      ? createNewLoader(data, opearator)
-      : createNewOperator(data, data.sourceOrder[data.sourceOrder.length-1], opearator);
+    const [newData, operatorId] =
+      opearator.kind === OperatorKind.Loader
+        ? createNewLoader(data, opearator)
+        : createNewOperator(data, data.sourceOrder[data.sourceOrder.length - 1], opearator);
 
     setData(newData);
     setConfigId(operatorId);
@@ -58,7 +59,7 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   };
   const addOrConfigAggregator = (): void => {
     if (!data.aggregate) {
-      const [newData,] = createNewAggregator(data);
+      const [newData] = createNewAggregator(data);
       setData(newData);
     }
     configureAction(AGGREGATOR_CONFIG);
@@ -74,9 +75,8 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
       setShowResult(true);
     }
   };
-  const compileToPql = (): void => 
-    setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
-  
+  const compileToPql = (): void => setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
+
   const run = (): Promise<void> =>
     Promise.resolve()
       .then(() => compileToPql())
@@ -96,7 +96,7 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
     } finally {
       setShowResult(true);
     }
-  }
+  };
 
   const save = (): Promise<void> =>
     Promise.resolve()
@@ -118,20 +118,28 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
           setProjectName={setProjectName}
           onResultCodeSwitch={switchCodeResult}
         />
-        <QueryBase
-          pql={pql}
-          setPql={setPql}
-          result={result}
-          showResult={showResult}
-        />
+        <QueryBase pql={pql} setPql={setPql} result={result} showResult={showResult} />
       </div>
       <div className="flex flex-col">
         <QueryBuilderHeader addSelectorAction={addSelectorAction} addOrConfigAggregatorAction={addOrConfigAggregator} />
         <div className="p-3 shadow-sm relative flex-auto">
-          {view === ViewState.Builder && <PqlPipeline data={data} setData={setData} onConfigClick={configureAction} onRun={run} partialRun={partialRun} />}
-          {view === ViewState.Selector && <QuerySelector kind={selector} onClose={onClose} addOperator={addNewOperator} />}
+          {view === ViewState.Builder && (
+            <PqlPipeline
+              data={data}
+              setData={setData}
+              onConfigClick={configureAction}
+              onRun={run}
+              partialRun={partialRun}
+            />
+          )}
+          {view === ViewState.Selector && (
+            <QuerySelector kind={selector} onClose={onClose} addOperator={addNewOperator} />
+          )}
           {view === ViewState.Configurator && (
-            <OperationConfig onClose={onClose} operator={configId === AGGREGATOR_CONFIG ? data.aggregate! : data.operators[configId].operator} />
+            <OperationConfig
+              onClose={onClose}
+              operator={configId === AGGREGATOR_CONFIG ? data.aggregate! : data.operators[configId].operator}
+            />
           )}
         </div>
       </div>

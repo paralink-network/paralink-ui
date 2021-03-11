@@ -30,9 +30,9 @@ export default class QuerySqlOperator implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onQueryChange = (query: string) => this.query = query;
-    const onMethodChange = (method: string): SqlMethod => this.method = method as SqlMethod;
-    const onResultChange = () => this.result = !this.result;
+    const onQueryChange = (query: string) => (this.query = query);
+    const onMethodChange = (method: string): SqlMethod => (this.method = method as SqlMethod);
+    const onResultChange = () => (this.result = !this.result);
 
     return (
       <>

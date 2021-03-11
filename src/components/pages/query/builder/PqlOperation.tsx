@@ -17,7 +17,9 @@ const PqlOperation = ({ id, index, operator, onConfigClick, onRemove, onRun }: P
       <div
         {...provided.draggableProps}
         {...provided.dragHandleProps}
-        className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between ${snapshot.isDragging ? 'bg-blue-100' : 'bg-white'}`}
+        className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between ${
+          snapshot.isDragging ? 'bg-blue-100' : 'bg-white'
+        }`}
         ref={provided.innerRef}
       >
         {operator.title}

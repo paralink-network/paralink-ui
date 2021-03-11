@@ -25,27 +25,24 @@ export default class TraverseOperator implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onItemAdd = (): string[] => this.params = [...this.params, ''];
+    const onItemAdd = (): string[] => (this.params = [...this.params, '']);
     const onItemRemove = (): string[] => this.params.splice(-1, 1);
-    const onItemUpdate = (index: number) => (value: string): string => this.params[index] = value;
+    const onItemUpdate = (index: number) => (value: string): string => (this.params[index] = value);
 
-    const itemView = this.params
-      .map((param, index) => 
-        <li key={index} className='w-full mt-1'>
-          <Input value={param} onChange={refresh(onItemUpdate(index))} className="w-full" />
-        </li>
-      );
+    const itemView = this.params.map((param, index) => (
+      <li key={index} className="w-full mt-1">
+        <Input value={param} onChange={refresh(onItemUpdate(index))} className="w-full" />
+      </li>
+    ));
 
     return (
       <>
-        <ListHeaderAddRemove 
-          title="Traverse parameters:" 
-          onAdd={() => refresh(onItemAdd)(undefined)} 
+        <ListHeaderAddRemove
+          title="Traverse parameters:"
+          onAdd={() => refresh(onItemAdd)(undefined)}
           onRemove={() => refresh(onItemRemove)(undefined)}
         />
-        <ul className='w-full'>
-          {itemView}
-        </ul>
+        <ul className="w-full">{itemView}</ul>
       </>
     );
   }

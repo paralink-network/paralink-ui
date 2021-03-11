@@ -97,9 +97,14 @@ export const createNewLoader = (data: QueryData, operator: Operator, title = '')
 };
 
 export const createNewAggregator = (data: QueryData): [QueryData, string] => {
-  return [{...data, 
-      aggregate: new AggregatorOperator(AggregationMethods.Max)
-    }, 
-    AGGREGATOR_CONFIG
-  ];
-}
+  return [{ ...data, aggregate: new AggregatorOperator(AggregationMethods.Max) }, AGGREGATOR_CONFIG];
+};
+
+export const emptyQueryData: QueryData = {
+  operators: {},
+  sources: {},
+  sourceOrder: [],
+
+  sourceIndex: 0,
+  operatorIndex: 0,
+};

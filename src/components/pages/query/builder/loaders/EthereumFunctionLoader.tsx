@@ -22,7 +22,14 @@ export default class implements Operator {
 
   private numberConfirmation?: number;
 
-  constructor(address: string, chain: string, fun: string, args: string[], block?: number, numberConfirmation?: number) {
+  constructor(
+    address: string,
+    chain: string,
+    fun: string,
+    args: string[],
+    block?: number,
+    numberConfirmation?: number,
+  ) {
     this.address = address;
     this.chain = chain;
     this.fun = fun;
@@ -47,22 +54,22 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setChain = (chain: string): string => this.chain = chain;
-    const setFunction = (fun: string): string => this.fun = fun;
-    const setAddress = (address: string): string => this.address = address;
-    const setBlock = (block: string) => this.block = parseInt(block);
-    const setNumberConfirmation = (numberConfirmation: string) => this.numberConfirmation = parseInt(numberConfirmation);
+    const setChain = (chain: string): string => (this.chain = chain);
+    const setFunction = (fun: string): string => (this.fun = fun);
+    const setAddress = (address: string): string => (this.address = address);
+    const setBlock = (block: string) => (this.block = parseInt(block));
+    const setNumberConfirmation = (numberConfirmation: string) =>
+      (this.numberConfirmation = parseInt(numberConfirmation));
 
-    const onItemAdd = (): string[] => this.args = [...this.args, ''];
+    const onItemAdd = (): string[] => (this.args = [...this.args, '']);
     const onItemRemove = (): string[] => this.args.splice(-1, 1);
-    const onItemUpdate = (index: number) => (value: string): string => this.args[index] = value;
+    const onItemUpdate = (index: number) => (value: string): string => (this.args[index] = value);
 
-    const itemView = this.args
-      .map((arg, index) => 
-        <li key={index} className='w-full mt-1'>
-          <Input value={arg} onChange={refresh(onItemUpdate(index))} className="w-full" />
-        </li>
-    );
+    const itemView = this.args.map((arg, index) => (
+      <li key={index} className="w-full mt-1">
+        <Input value={arg} onChange={refresh(onItemUpdate(index))} className="w-full" />
+      </li>
+    ));
     return (
       <>
         <div>
@@ -77,21 +84,24 @@ export default class implements Operator {
           <Label name="Function: " />
           <Input value={this.fun} onChange={refresh(setFunction)} className="w-full" />
         </div>
-        <ListHeaderAddRemove 
-          title="Parameters:" 
-          onAdd={() => refresh(onItemAdd)(undefined)} 
+        <ListHeaderAddRemove
+          title="Parameters:"
+          onAdd={() => refresh(onItemAdd)(undefined)}
           onRemove={() => refresh(onItemRemove)(undefined)}
         />
-        <ul className='w-full'>
-          {itemView}
-        </ul>
+        <ul className="w-full">{itemView}</ul>
         <div className="mt-3 flex flex-col">
           <Label name="Block:" />
           <Input value={this.block} type="number" onChange={refresh(setBlock)} className="w-full" />
         </div>
         <div className="mt-3 flex flex-col">
           <Label name="Number confirmation:" />
-          <Input value={this.numberConfirmation} type="number" onChange={refresh(setNumberConfirmation)} className="w-full" />
+          <Input
+            value={this.numberConfirmation}
+            type="number"
+            onChange={refresh(setNumberConfirmation)}
+            className="w-full"
+          />
         </div>
       </>
     );

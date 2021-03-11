@@ -20,11 +20,10 @@ export default class implements Operator {
   }
 
   build(): HttpPostPqlLoader {
-    const params = this.params
-      .reduce((acc, [key, value]) => {
-        acc[key]= value;
-        return acc;
-      }, {} as { [key: string]: string});
+    const params = this.params.reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {} as { [key: string]: string });
 
     return {
       params,
@@ -35,19 +34,18 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setUri = (uri: string): string => this.uri = uri;
+    const setUri = (uri: string): string => (this.uri = uri);
 
-    const onItemAdd = (): [string, string][] => this.params = [...this.params, ["", ""]];
+    const onItemAdd = (): [string, string][] => (this.params = [...this.params, ['', '']]);
     const onItemRemove = (): [string, string][] => this.params.splice(-1, 1);
-    const onItemUpdate = (index: number, key=0) => (value: string): string => this.params[index][key] = value;
+    const onItemUpdate = (index: number, key = 0) => (value: string): string => (this.params[index][key] = value);
 
-    const itemView = this.params
-      .map((param, index) => 
-        <li key={index} className='w-full mt-1 grid grid-cols-2'>
-          <Input value={param[0]} onChange={refresh(onItemUpdate(index, 0))} className="mr-1" placeholder="Key" />
-          <Input value={param[1]} onChange={refresh(onItemUpdate(index, 1))} className="ml-1" placeholder="Value" />
-        </li>
-      );
+    const itemView = this.params.map((param, index) => (
+      <li key={index} className="w-full mt-1 grid grid-cols-2">
+        <Input value={param[0]} onChange={refresh(onItemUpdate(index, 0))} className="mr-1" placeholder="Key" />
+        <Input value={param[1]} onChange={refresh(onItemUpdate(index, 1))} className="ml-1" placeholder="Value" />
+      </li>
+    ));
 
     return (
       <>
@@ -55,14 +53,12 @@ export default class implements Operator {
           <Label name="Url: " />
           <Input value={this.uri} onChange={refresh(setUri)} className="w-full" />
         </div>
-        <ListHeaderAddRemove 
-          title="Post parameters:" 
-          onAdd={() => refresh(onItemAdd)(undefined)} 
+        <ListHeaderAddRemove
+          title="Post parameters:"
+          onAdd={() => refresh(onItemAdd)(undefined)}
           onRemove={() => refresh(onItemRemove)(undefined)}
         />
-        <ul className='w-full'>
-          {itemView}
-        </ul>
+        <ul className="w-full">{itemView}</ul>
       </>
     );
   }

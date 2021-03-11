@@ -37,10 +37,11 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setChain = (chain: string): string => this.chain = chain;
-    const setAddress = (address: string): string => this.address = address;
-    const setBlock = (block: string) => this.block = parseInt(block);
-    const setNumberConfirmation = (numberConfirmation: string) => this.numberConfirmation = parseInt(numberConfirmation);
+    const setChain = (chain: string): string => (this.chain = chain);
+    const setAddress = (address: string): string => (this.address = address);
+    const setBlock = (block: string) => (this.block = parseInt(block));
+    const setNumberConfirmation = (numberConfirmation: string) =>
+      (this.numberConfirmation = parseInt(numberConfirmation));
 
     return (
       <>
@@ -58,7 +59,12 @@ export default class implements Operator {
         </div>
         <div className="mt-3 flex flex-col">
           <Label name="Number confirmation:" />
-          <Input value={this.numberConfirmation} type="number" onChange={refresh(setNumberConfirmation)} className="w-full" />
+          <Input
+            value={this.numberConfirmation}
+            type="number"
+            onChange={refresh(setNumberConfirmation)}
+            className="w-full"
+          />
         </div>
       </>
     );

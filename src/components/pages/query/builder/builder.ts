@@ -25,7 +25,7 @@ import HttpPostLoader from './loaders/HttpPostLoader';
 import EthereumBalanceLoader from './loaders/EthereumBalanceLoader';
 import EthereumFunctionLoader from './loaders/EthereumFunctionLoader';
 import PostgresLoader from './loaders/PostgresLoader';
-import { createNewOperator, createNewSource, QueryData } from '../../../../state/query-builder';
+import { createNewOperator, createNewSource, emptyQueryData, QueryData } from '../../../../state/query-builder';
 import AggregatorOperator from './operators/AggregateOperator';
 import { AggregationMethods } from '../../../../state/pql/aggregators';
 
@@ -39,14 +39,26 @@ const createHttpPostOperator = ({ uri, params }: HttpPostPqlLoader): HttpPostLoa
 const createPostgressOperator = ({ uri, query }: SqlPqlLoader): PostgresLoader => new PostgresLoader(uri, query);
 
 const createEthereumBalanceOperator = ({ address, chain, params }: EthereumBalancePqlLoader): EthereumBalanceLoader =>
-  new EthereumBalanceLoader(address, chain, params.block === 'latest' ? undefined : params.block, params.num_confirmations);
+  new EthereumBalanceLoader(
+    address,
+    chain,
+    params.block === 'latest' ? undefined : params.block,
+    params.num_confirmations,
+  );
 
 const createEthereumFunctionOperator = ({
   address,
   chain,
   params,
 }: EthereumFunctionPqlLoader): EthereumFunctionLoader =>
-  new EthereumFunctionLoader(address, chain, params.function, params.args, params.block === 'latest' ? undefined : params.block, params.num_confirmations);
+  new EthereumFunctionLoader(
+    address,
+    chain,
+    params.function,
+    params.args,
+    params.block === 'latest' ? undefined : params.block,
+    params.num_confirmations,
+  );
 
 const convertPqlOperationToOperator = (operation: PqlOperator): Operator => {
   console.log('Operation: ', operation);
@@ -89,7 +101,7 @@ const convertPqlSourceOperationToOperator = (operation: SourceOperation): Operat
     : convertPqlOperationToOperator(<PqlOperator>operation);
 
 export const convertPql = (pql: Pql): QueryData => {
-  let queryData = {...emptyQueryData};
+  let queryData = { ...emptyQueryData };
   let sourceId = '';
 
   for (let pipelineIndex = 0; pipelineIndex < pql.sources.length; pipelineIndex += 1) {
@@ -98,23 +110,15 @@ export const convertPql = (pql: Pql): QueryData => {
 
     for (let operationIndex = 0; operationIndex < source.pipeline.length; operationIndex += 1) {
       const operator = convertPqlSourceOperationToOperator(source.pipeline[operationIndex]);
-      [queryData,] = createNewOperator(queryData, sourceId, operator);
+      [queryData] = createNewOperator(queryData, sourceId, operator);
     }
   }
   if (pql.aggregate) {
-    queryData.aggregate = pql.aggregate.method === AggregationMethods.Query
-      ? new AggregatorOperator(pql.aggregate.method, pql.aggregate.query, pql.aggregate.params)
-      : new AggregatorOperator(pql.aggregate.method)
+    queryData.aggregate =
+      pql.aggregate.method === AggregationMethods.Query
+        ? new AggregatorOperator(pql.aggregate.method, pql.aggregate.query, pql.aggregate.params)
+        : new AggregatorOperator(pql.aggregate.method);
   }
 
   return queryData;
-};
-
-export const emptyQueryData: QueryData = {
-  operators: {},
-  sources: {},
-  sourceOrder: [],
-
-  sourceIndex: 0,
-  operatorIndex: 0,
 };

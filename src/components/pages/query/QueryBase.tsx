@@ -12,10 +12,7 @@ interface QueryBase {
 
 const QueryBase = ({ pql, result, showResult, setPql }: QueryBase): JSX.Element => (
   <div className="col-span-3 pb-5 shadow-sm flex-auto">
-    {showResult
-      ? <QueryResult result={result} />
-      : <Editor code={pql} onChange={setPql} />
-    }
+    {showResult ? <QueryResult result={result} /> : <Editor code={pql} onChange={setPql} />}
   </div>
 );
 

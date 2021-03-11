@@ -12,7 +12,6 @@ interface QueryBuilderHeader {
 }
 
 const QueryBuilderHeader = ({ addSelectorAction, addOrConfigAggregatorAction }: QueryBuilderHeader): JSX.Element => {
-  
   return (
     <div className="p-2 flex flex-column w-full justify-start shadow-sm">
       <div className="my-1">

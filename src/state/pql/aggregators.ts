@@ -14,7 +14,11 @@ export enum AggregationQueryParams {
   None = 'None',
 }
 
-type AggregationBaseMethods = AggregationMethods.Max | AggregationMethods.Min | AggregationMethods.Mean | AggregationMethods.Median;
+type AggregationBaseMethods =
+  | AggregationMethods.Max
+  | AggregationMethods.Min
+  | AggregationMethods.Mean
+  | AggregationMethods.Median;
 
 interface AggregationBasePql {
   method: AggregationBaseMethods;

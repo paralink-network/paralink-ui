@@ -17,7 +17,14 @@ interface PqlSource {
 
 const PqlSource = ({ id, title, operators, onTitleChange, onRun, onRemove, onConfigClick }: PqlSource): JSX.Element => {
   const operationView = operators.map((operator, index) => (
-    <PqlOperation index={index} key={operator.id} {...operator} onConfigClick={onConfigClick} onRun={onRun(id)} onRemove={onRemove} />
+    <PqlOperation
+      index={index}
+      key={operator.id}
+      {...operator}
+      onConfigClick={onConfigClick}
+      onRun={onRun(id)}
+      onRemove={onRemove}
+    />
   ));
 
   return (

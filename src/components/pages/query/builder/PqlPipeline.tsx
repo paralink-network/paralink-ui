@@ -20,15 +20,8 @@ const onDragEnd = (data: QueryData, setData: UpdateData) => (result: DropResult)
     newOperators.splice(source.index, 1);
     newOperators.splice(destination.index, 0, draggableId);
 
-    setData({...data,
-      sources: {...data.sources,
-        [column.id]: {...column,
-          operators: newOperators
-        }
-      }
-    });
-  }
-  else {
+    setData({ ...data, sources: { ...data.sources, [column.id]: { ...column, operators: newOperators } } });
+  } else {
     const fromColumn = data.sources[source.droppableId];
     const fromOperators = [...fromColumn.operators];
     fromOperators.splice(source.index, 1);
@@ -37,20 +30,16 @@ const onDragEnd = (data: QueryData, setData: UpdateData) => (result: DropResult)
     const toOperators = [...toColumn.operators];
     toOperators.splice(destination.index, 0, draggableId);
 
-    setData({...data,
-      sources: {...data.sources,
-        [fromColumn.id]: {...fromColumn,
-          operators: [...fromOperators],
-        },
-        [toColumn.id]: {...toColumn,
-          operators: [...toOperators]
-        }
-      }
+    setData({
+      ...data,
+      sources: {
+        ...data.sources,
+        [fromColumn.id]: { ...fromColumn, operators: [...fromOperators] },
+        [toColumn.id]: { ...toColumn, operators: [...toOperators] },
+      },
     });
   }
-}
-
-
+};
 
 interface PqlPipeline {
   data: QueryData;
@@ -65,16 +54,10 @@ const PqlPipeline = ({ data, setData, onConfigClick, onRun, partialRun }: PqlPip
     const { operators, title } = data.sources[sourceId];
     const operationItems = operators.map((operationId) => data.operators[operationId]);
 
-    const onTitleChange = (value: string) => setData({...data,
-      sources: {...data.sources,
-        [sourceId]: {...data.sources[sourceId],
-          title: value
-        }
-      }
-    });
-    
-    const onRemove = (id: string) => 
-      setData(onOperatorRemoveAction(data, sourceId, id));
+    const onTitleChange = (value: string) =>
+      setData({ ...data, sources: { ...data.sources, [sourceId]: { ...data.sources[sourceId], title: value } } });
+
+    const onRemove = (id: string) => setData(onOperatorRemoveAction(data, sourceId, id));
 
     return (
       <PqlSource
@@ -90,19 +73,19 @@ const PqlPipeline = ({ data, setData, onConfigClick, onRun, partialRun }: PqlPip
     );
   });
 
-  const removeAggregation = () => setData({...data, aggregate: undefined});
+  const removeAggregation = () => setData({ ...data, aggregate: undefined });
 
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd(data, setData)}>{sourcesView}</DragDropContext>
-      {data.aggregate && 
+      {data.aggregate && (
         <div className="mb-5 rounded pb-2 px-1">
           <div className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between`}>
             Aggregate
             <OperationBody onRun={onRun} onRemove={removeAggregation} onConfig={() => onConfigClick('aggregate')} />
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

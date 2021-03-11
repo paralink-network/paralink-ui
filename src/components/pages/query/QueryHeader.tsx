@@ -21,7 +21,16 @@ interface QueryHeader {
   setProjectName: (value: string) => void;
 }
 
-const QueryHeader = ({ projectName, setProjectName, showResult, onResultCodeSwitch, onRun, onSave, onBuild, onCompile }: QueryHeader): JSX.Element => (
+const QueryHeader = ({
+  projectName,
+  setProjectName,
+  showResult,
+  onResultCodeSwitch,
+  onRun,
+  onSave,
+  onBuild,
+  onCompile,
+}: QueryHeader): JSX.Element => (
   <div className="p-2 h-50 shadow-sm flex flex-column justify-between">
     <LabelInput
       value={projectName}
@@ -32,7 +41,7 @@ const QueryHeader = ({ projectName, setProjectName, showResult, onResultCodeSwit
     />
 
     <div className="mt-1 mb-1">
-      <TooltipButton onClick={onResultCodeSwitch} className="ml-1" tooltip={showResult ? "Show code" : "Show result"}>
+      <TooltipButton onClick={onResultCodeSwitch} className="ml-1" tooltip={showResult ? 'Show code' : 'Show result'}>
         <Icon icon={showResult ? codeJson : clipboardTextOutline} width="20" />
       </TooltipButton>
       <TooltipButton onClick={onSave} className="ml-1" tooltip="Save">

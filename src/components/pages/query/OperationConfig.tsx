@@ -13,10 +13,14 @@ const OperationConfig = ({ onClose, operator }: OperationConfig): JSX.Element =>
   const refresh = <T,>(fun: (value: T) => void) => (value: T) => {
     fun(value);
     setRefreshIndex(!refreshIndex);
-  }
+  };
   useEffect(() => {}, [refreshIndex]);
 
-  return <QueryClosableContainer onClose={onClose} submitButton>{operator.renderConfig(refresh)}</QueryClosableContainer>;
+  return (
+    <QueryClosableContainer onClose={onClose} submitButton>
+      {operator.renderConfig(refresh)}
+    </QueryClosableContainer>
+  );
 };
 
 export default OperationConfig;
