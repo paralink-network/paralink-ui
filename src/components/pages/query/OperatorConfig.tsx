@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Operator, OutsideOperator } from '../../../state/pql/pql';
 import QueryClosableContainer from './QueryClosableContainer';
 
-interface OperationConfig extends QueryClosableContainer {
+interface OperatorConfig extends QueryClosableContainer {
   operator: Operator | OutsideOperator;
 }
 
-const OperationConfig = ({ onClose, operator }: OperationConfig): JSX.Element => {
+const OperatorConfig = ({ onClose, operator }: OperatorConfig): JSX.Element => {
   // Because our operators are not common components, when their state is internally updated
   // we need to trigger this (parent) component to refresh childs component view.
   const [refreshIndex, setRefreshIndex] = useState(true);
@@ -23,4 +23,4 @@ const OperationConfig = ({ onClose, operator }: OperationConfig): JSX.Element =>
   );
 };
 
-export default OperationConfig;
+export default OperatorConfig;

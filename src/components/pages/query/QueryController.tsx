@@ -6,7 +6,7 @@ import { createNewAggregator, createNewLoader, createNewOperator, QueryData } fr
 import { convertPql } from './builder/builder';
 import { compile, partialCompile } from './builder/compile';
 import PqlPipeline from './builder/PqlPipeline';
-import OperationConfig from './OperationConfig';
+import OperationConfig from './OperatorConfig';
 import QueryBase from './QueryBase';
 import QueryBuilderHeader from './QueryBuilderHeader';
 import QueryHeader from './QueryHeader';
