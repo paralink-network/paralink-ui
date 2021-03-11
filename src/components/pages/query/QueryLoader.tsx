@@ -39,7 +39,7 @@ const QueryLoader = (): JSX.Element => {
 
   if (isLoading) return <Loading />;
   if (error.length > 0) return <ErrorContainer message={error} hash={hash} />;
-  return <QueryController queryData={queryData} pql={pql} />;
+  return <QueryController queryData={queryData} pqlData={pql} />;
 };
 
 export default QueryLoader;
