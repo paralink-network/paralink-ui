@@ -1,35 +1,30 @@
-export const AGGREGATION_METHOD_MAX = 'max';
-export const AGGREGATION_METHOD_MIN = 'min';
-export const AGGREGATION_METHOD_MEAN = 'mean';
-export const AGGREGATION_METHOD_MEDIAN = 'median';
-export const AGGREGATION_METHOD_QUERY_SQL = 'query.sql';
+export const AGGREGATOR_CONFIG = 'aggregate';
 
-export const AGGREGATION_PARAMS_JSON = 'json';
-export const AGGREGATION_PARAMS_LIST = 'list';
-export const AGGREGATION_PARAMS_NONE = 'None';
+export enum AggregationMethods {
+  Max = 'max',
+  Min = 'min',
+  Mean = 'mean',
+  Median = 'median',
+  Query = 'query.sql',
+}
 
-type AggregationParams =
-  | typeof AGGREGATION_PARAMS_JSON
-  | typeof AGGREGATION_PARAMS_LIST
-  | typeof AGGREGATION_PARAMS_NONE;
+export enum AggregationQueryParams {
+  Json = 'json',
+  List = 'list',
+  None = 'None',
+}
 
-type AggregationBaseMethods =
-  | typeof AGGREGATION_METHOD_MAX
-  | typeof AGGREGATION_METHOD_MIN
-  | typeof AGGREGATION_METHOD_MEAN
-  | typeof AGGREGATION_METHOD_MEDIAN;
-
-type AggregationQueryMethods = typeof AGGREGATION_METHOD_QUERY_SQL;
+type AggregationBaseMethods = AggregationMethods.Max | AggregationMethods.Min | AggregationMethods.Mean | AggregationMethods.Median;
 
 interface AggregationBasePql {
   method: AggregationBaseMethods;
 }
 
 interface AggregationQueryPql {
-  params: AggregationParams;
+  params: AggregationQueryParams;
   query: string;
   result: boolean;
-  method: AggregationQueryMethods;
+  method: AggregationMethods.Query;
 }
 
 export type PqlAggregation = AggregationBasePql | AggregationQueryPql;
@@ -38,9 +33,9 @@ export const aggregatePql = (method: AggregationBaseMethods): AggregationBasePql
   method,
 });
 
-export const aggregateQueryPql = (query: string, params: AggregationParams): AggregationQueryPql => ({
+export const aggregateQueryPql = (query: string, params: AggregationQueryParams): AggregationQueryPql => ({
   query,
   params,
   result: true,
-  method: AGGREGATION_METHOD_QUERY_SQL,
+  method: AggregationMethods.Query,
 });
