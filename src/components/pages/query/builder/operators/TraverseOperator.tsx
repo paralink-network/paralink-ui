@@ -25,9 +25,13 @@ export default class TraverseOperator implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onItemAdd = (): string[] => (this.params = [...this.params, '']);
+    const onItemAdd = (): void => {
+      this.params = [...this.params, ''];
+    };
     const onItemRemove = (): string[] => this.params.splice(-1, 1);
-    const onItemUpdate = (index: number) => (value: string): string => (this.params[index] = value);
+    const onItemUpdate = (index: number) => (value: string): void => {
+      this.params[index] = value;
+    };
 
     const itemView = this.params.map((param, index) => (
       <li key={index} className="w-full mt-1">

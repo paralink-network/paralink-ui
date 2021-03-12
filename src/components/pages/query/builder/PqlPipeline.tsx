@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { onOperatorRemoveAction, QueryData } from '../../../../state/query-builder';
 import OperationBody from './OperationBody';
@@ -54,10 +54,10 @@ const PqlPipeline = ({ data, setData, onConfigClick, onRun, partialRun }: PqlPip
     const { operators, title } = data.sources[sourceId];
     const operationItems = operators.map((operationId) => data.operators[operationId]);
 
-    const onTitleChange = (value: string) =>
+    const onTitleChange = (value: string): void =>
       setData({ ...data, sources: { ...data.sources, [sourceId]: { ...data.sources[sourceId], title: value } } });
 
-    const onRemove = (id: string) => setData(onOperatorRemoveAction(data, sourceId, id));
+    const onRemove = (id: string): void => setData(onOperatorRemoveAction(data, sourceId, id));
 
     return (
       <PqlSource
@@ -73,14 +73,14 @@ const PqlPipeline = ({ data, setData, onConfigClick, onRun, partialRun }: PqlPip
     );
   });
 
-  const removeAggregation = () => setData({ ...data, aggregate: undefined });
+  const removeAggregation = (): void => setData({ ...data, aggregate: undefined });
 
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd(data, setData)}>{sourcesView}</DragDropContext>
       {data.aggregate && (
         <div className="mb-5 rounded pb-2 px-1">
-          <div className={`border rounded px-5 py-2 mb-1 flex flex-row justify-between`}>
+          <div className="border rounded px-5 py-2 mb-1 flex flex-row justify-between">
             Aggregate
             <OperationBody onRun={onRun} onRemove={removeAggregation} onConfig={() => onConfigClick('aggregate')} />
           </div>

@@ -34,9 +34,15 @@ export default class AggregatorOperator implements OutsideOperator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onQueryChange = (value: string): string => (this.query = value);
-    const onMethodChange = (value: string): AggregationMethods => (this.method = value as AggregationMethods);
-    const onParamChange = (value: string): AggregationQueryParams => (this.param = value as AggregationQueryParams);
+    const onQueryChange = (value: string): void => {
+      this.query = value;
+    };
+    const onMethodChange = (value: string): void => {
+      this.method = value as AggregationMethods;
+    };
+    const onParamChange = (value: string): void => {
+      this.param = value as AggregationQueryParams;
+    };
 
     return (
       <>

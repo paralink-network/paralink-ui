@@ -21,11 +21,12 @@ export const Input = ({ value, onChange, type = 'text', className = '', placehol
 
 interface Label {
   name: string;
+  htmlFor?: string;
   className?: string;
 }
 
-export const Label = ({ name, className = '' }: Label): JSX.Element => (
-  <label className={`my-auto text-lg font-medium text-gray-700 mr-3 ${className}`} htmlFor="">
+export const Label = ({ name, className = '', htmlFor = '' }: Label): JSX.Element => (
+  <label className={`my-auto text-lg font-medium text-gray-700 mr-3 ${className}`} htmlFor={htmlFor}>
     {name}
   </label>
 );
@@ -52,7 +53,7 @@ interface Checkbox {
   onChange: () => void;
 }
 
-export const Checkbox = ({ value, onChange }: Checkbox) => (
+export const Checkbox = ({ value, onChange }: Checkbox): JSX.Element => (
   <input
     type="checkbox"
     checked={value}
@@ -66,7 +67,7 @@ interface Textarea {
   onChange: (value: string) => void;
 }
 
-export const Textarea = ({ value, onChange }: Textarea) => (
+export const Textarea = ({ value, onChange }: Textarea): JSX.Element => (
   <textarea
     value={value}
     onChange={(event) => onChange(event.target.value)}
@@ -79,7 +80,7 @@ interface Select {
   onChange: (value: string) => void;
 }
 
-export const Select: React.FC<Select> = ({ value, onChange, children }) => (
+export const Select: React.FC<Select> = ({ value, onChange, children }): JSX.Element => (
   <select value={value} onChange={(event) => onChange(event.target.value)} className="flex-auto">
     {children}
   </select>
@@ -89,4 +90,4 @@ interface Option {
   value: string;
 }
 
-export const Option: React.FC<Option> = ({ value, children }) => <option value={value}>{children}</option>;
+export const Option: React.FC<Option> = ({ value, children }): JSX.Element => <option value={value}>{children}</option>;

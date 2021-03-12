@@ -22,7 +22,9 @@ export default class GetIndexOperator implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const onChange = (value: string): number => (this.params = parseInt(value));
+    const onChange = (value: string): void => {
+      this.params = parseInt(value, 10);
+    };
     return (
       <>
         <Label name="Index:" />

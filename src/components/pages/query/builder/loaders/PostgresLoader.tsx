@@ -27,8 +27,12 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setUri = (uri: string): string => (this.uri = uri);
-    const setQuery = (query: string): string => (this.query = query);
+    const setUri = (uri: string): void => {
+      this.uri = uri;
+    };
+    const setQuery = (query: string): void => {
+      this.query = query;
+    };
 
     return (
       <>

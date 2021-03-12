@@ -13,10 +13,10 @@ interface OperatorSelection extends QuerySelectorContainer {
 }
 
 const OperationSelector = ({ addOperator, onClose }: OperatorSelection): JSX.Element => {
-  const onGetIndexClick = () => addOperator(new GetIndexOperator(0));
-  const onTraverseClick = () => addOperator(new TraverseOperator(['']));
-  const onMathClick = () => addOperator(new MathOperator(MathMethod.Add, 0));
-  const onSqlQueryClick = () => addOperator(new QuerySqlOperator(SqlMethod.None, '', false));
+  const onGetIndexClick = (): void => addOperator(new GetIndexOperator(0));
+  const onTraverseClick = (): void => addOperator(new TraverseOperator(['']));
+  const onMathClick = (): void => addOperator(new MathOperator(MathMethod.Add, 0));
+  const onSqlQueryClick = (): void => addOperator(new QuerySqlOperator(SqlMethod.None, '', false));
 
   return (
     <QuerySelectorContainer onClose={onClose}>

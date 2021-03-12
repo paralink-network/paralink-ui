@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockType, EthereumBalancePqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
+import { EthereumBalancePqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 import { Input, Label } from '../../../../common/Inputs';
 import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
 
@@ -37,11 +37,18 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setChain = (chain: string): string => (this.chain = chain);
-    const setAddress = (address: string): string => (this.address = address);
-    const setBlock = (block: string) => (this.block = parseInt(block));
-    const setNumberConfirmation = (numberConfirmation: string) =>
-      (this.numberConfirmation = parseInt(numberConfirmation));
+    const setChain = (chain: string): void => {
+      this.chain = chain;
+    };
+    const setAddress = (address: string): void => {
+      this.address = address;
+    };
+    const setBlock = (block: string): void => {
+      this.block = parseInt(block, 10);
+    };
+    const setNumberConfirmation = (numberConfirmation: string): void => {
+      this.numberConfirmation = parseInt(numberConfirmation, 10);
+    };
 
     return (
       <>

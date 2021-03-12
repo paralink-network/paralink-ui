@@ -2,7 +2,6 @@ import React from 'react';
 import { HttpPostPqlLoader, LoaderMethods, ObjectParams } from '../../../../../state/pql/loaders';
 import { Input, Label } from '../../../../common/Inputs';
 import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
-import { Button } from '../../../../common/Buttons';
 import { ListHeaderAddRemove } from '../../../../common/Lists';
 
 export default class implements Operator {
@@ -34,11 +33,18 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setUri = (uri: string): string => (this.uri = uri);
-
-    const onItemAdd = (): [string, string][] => (this.params = [...this.params, ['', '']]);
-    const onItemRemove = (): [string, string][] => this.params.splice(-1, 1);
-    const onItemUpdate = (index: number, key = 0) => (value: string): string => (this.params[index][key] = value);
+    const setUri = (uri: string): void => {
+      this.uri = uri;
+    };
+    const onItemAdd = (): void => {
+      this.params = [...this.params, ['', '']];
+    };
+    const onItemRemove = (): void => {
+      this.params.splice(-1, 1);
+    };
+    const onItemUpdate = (index: number, key = 0) => (value: string): void => {
+      this.params[index][key] = value;
+    };
 
     const itemView = this.params.map((param, index) => (
       <li key={index} className="w-full mt-1 grid grid-cols-2">

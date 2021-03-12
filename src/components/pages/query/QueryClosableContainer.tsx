@@ -1,8 +1,7 @@
 import React from 'react';
 import { InlineIcon } from '@iconify/react';
 import arrowLeft from '@iconify-icons/mdi/arrow-left';
-import { TooltipButton } from '../../common/Buttons';
-import { Button } from 'semantic-ui-react';
+import { Button, TooltipButton } from '../../common/Buttons';
 
 interface QueryClosableContainer {
   onClose: () => void;

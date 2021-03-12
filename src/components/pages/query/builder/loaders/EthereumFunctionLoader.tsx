@@ -1,8 +1,7 @@
 import React from 'react';
 import { Input, Label } from '../../../../common/Inputs';
 import { Operator, OperatorKind, RefreshCallback } from '../../../../../state/pql/pql';
-import { BlockType, EthereumFunctionPqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
-import { Button } from '../../../../common/Buttons';
+import { EthereumFunctionPqlLoader, LoaderMethods } from '../../../../../state/pql/loaders';
 import { ListHeaderAddRemove } from '../../../../common/Lists';
 
 export default class implements Operator {
@@ -54,16 +53,31 @@ export default class implements Operator {
   }
 
   renderConfig(refresh: RefreshCallback): JSX.Element {
-    const setChain = (chain: string): string => (this.chain = chain);
-    const setFunction = (fun: string): string => (this.fun = fun);
-    const setAddress = (address: string): string => (this.address = address);
-    const setBlock = (block: string) => (this.block = parseInt(block));
-    const setNumberConfirmation = (numberConfirmation: string) =>
-      (this.numberConfirmation = parseInt(numberConfirmation));
+    const setChain = (chain: string): void => {
+      this.chain = chain;
+    };
+    const setFunction = (fun: string): void => {
+      this.fun = fun;
+    };
+    const setAddress = (address: string): void => {
+      this.address = address;
+    };
+    const setBlock = (block: string): void => {
+      this.block = parseInt(block, 10);
+    };
+    const setNumberConfirmation = (numberConfirmation: string): void => {
+      this.numberConfirmation = parseInt(numberConfirmation, 10);
+    };
 
-    const onItemAdd = (): string[] => (this.args = [...this.args, '']);
-    const onItemRemove = (): string[] => this.args.splice(-1, 1);
-    const onItemUpdate = (index: number) => (value: string): string => (this.args[index] = value);
+    const onItemAdd = (): void => {
+      this.args = [...this.args, ''];
+    };
+    const onItemRemove = (): void => {
+      this.args.splice(-1, 1);
+    };
+    const onItemUpdate = (index: number) => (value: string): void => {
+      this.args[index] = value;
+    };
 
     const itemView = this.args.map((arg, index) => (
       <li key={index} className="w-full mt-1">
