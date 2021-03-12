@@ -48,7 +48,7 @@ export default class implements Operator {
         num_confirmations: this.numberConfirmation,
       },
       step: 'extract',
-      method: LoaderMethods.EthBalance,
+      method: LoaderMethods.EthFunction,
     };
   }
 
