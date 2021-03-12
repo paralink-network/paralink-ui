@@ -21,7 +21,7 @@ const QuerySelector = ({ kind, addOperator, onClose }: QuerySelector): JSX.Eleme
     case SELECTOR_OPERATOR:
       return <OperationSelector onClose={onClose} addOperator={addOperator} />;
     default:
-      throw new Error("Selector is not implemented!");
+      throw new Error('Selector is not implemented!');
   }
 };
 
