@@ -10,6 +10,5 @@ const TableHeaderCell: React.FC<{ className?: string }> = ({ className = '', chi
     </th>
   );
 };
-9;
 
 export default TableHeaderCell;
