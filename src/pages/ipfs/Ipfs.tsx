@@ -1,16 +1,14 @@
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Grid, Header, Message, Segment } from 'semantic-ui-react';
-
 import ace from 'brace';
 import 'brace/mode/json';
 import 'brace/theme/github';
-
 // No typings for jsoneditor-react for now just using @ts-ignore for getting around the issue
 // Later on with advanced design we might not used that library. If we do we can as well define typings for it
 // @ts-ignore
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import 'jsoneditor-react/es/editor.min.css';
+import React, { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
 interface IpfsProps {
   match: { params: { hash: string } };
