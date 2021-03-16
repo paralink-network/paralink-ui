@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader } from '../../components/common';
 import SearchInput from '../../components/common/Input';
 import mockDataChain from './mock-data';
+import TrackedChain from './TrackedChain';
 
 type ChainType = 'evm' | 'substrate';
 
@@ -28,38 +29,15 @@ const TrackedContractsList: React.FC<{}> = () => {
     setChains(mockDataChain as Chain[]);
   }, []);
 
+  // Filter out by the search but also keep the current active in the search
   const allChains = chains
-    .filter((data) => {
-      if (!searchChain) {
-        return data;
-      }
-      if (data.name.includes(searchChain.trim().toLocaleLowerCase())) {
-        return data;
-      }
-      return null;
-    })
-    .map((chain) => {
-      return (
-        <div
-          className={`focus:outline-none py-4 capitalize cursor-pointer ${
-            chain.name === activeChain?.name ? 'font-bold text-primary' : ''
-          }`}
-          role="button"
-          onClick={() => setActiveChain(chain)}
-          onKeyPress={() => setActiveChain(chain)}
-          tabIndex={0}
-        >
-          {chain.name}
-        </div>
-      );
-    });
+    .filter((chain) => chain.name.includes(searchChain.trim().toLocaleLowerCase()) || activeChain?.name === chain.name)
+    .map((chain) => (
+      <TrackedChain active={chain.name === activeChain?.name} name={chain.name} onClick={() => setActiveChain(chain)} />
+    ));
 
   const activeContracts =
-    activeChain && activeChain.tracked_contracts.length
-      ? activeChain.tracked_contracts.map((contract) => {
-          return contract;
-        })
-      : 'No Tracked Contracts';
+    activeChain && activeChain.tracked_contracts.length ? activeChain.tracked_contracts : 'No Tracked Contracts';
 
   return (
     <div className="container mx-auto">
