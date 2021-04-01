@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaCheck, FaTimes, FaTrash } from 'react-icons/fa';
 import ContractsApi from '../../api/contracts';
 import Button from '../../components/common/Buttons';
@@ -20,12 +20,12 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
   const initialContract = trackedContract;
 
   // Reference to the input
-  let trackInputRef: any = null;
+  const trackInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     // When adding a new line we want straight awayt to focus the new line
-    if (focused && trackInputRef) {
-      trackInputRef.focus();
+    if (focused && trackInputRef.current) {
+      trackInputRef.current.focus();
     }
   }, [focused, trackInputRef]);
 
@@ -40,8 +40,8 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
     setEdited(false);
     setInputFocused(false);
     console.log('trackinputRef', trackInputRef);
-    if (trackInputRef) {
-      trackInputRef.blur();
+    if (trackInputRef.current) {
+      trackInputRef.current.blur();
     }
   };
 
@@ -106,9 +106,7 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
         <input
           className="block w-full py-2 pr-8"
           type="text"
-          ref={(e) => {
-            trackInputRef = e;
-          }}
+          ref={trackInputRef}
           value={contract.address}
           onFocus={() => setInputFocused(true)}
           onBlur={() => setInputFocused(false)}
