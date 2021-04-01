@@ -16,7 +16,7 @@ const mockDataChain = [
     credentials: {
       private_key: '<private_key>',
     },
-    tracked_contracts: ['0x3194cBDC3dbcd3E11a07892e7bA5c3394048Cc87'],
+    tracked_contracts: [{ address: '0x3194cBDC3dbcd3E11a07892e7bA5c3394048Cc87', enabled: true }],
   },
   {
     name: 'dev-canvas',
@@ -27,7 +27,7 @@ const mockDataChain = [
       private_key: '<private_key>',
       public_key: '<public_key>',
     },
-    tracked_contracts: ['5FnDzvXcnu3RCtQ3f3RFqaQnVLfcWLZ9FvUURNoPMdmsKZXP'],
+    tracked_contracts: [{ address: '5FnDzvXcnu3RCtQ3f3RFqaQnVLfcWLZ9FvUURNoPMdmsKZXP', enabled: false }],
   },
 ];
 export default mockDataChain;
