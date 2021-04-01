@@ -1,40 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { FaCheck, FaTimes, FaTrash } from 'react-icons/fa';
+import ContractsApi from '../../api/contracts';
 import Button from '../../components/common/Buttons';
 import Toggle from '../../components/common/Toggle';
-
-export interface TrackedContract {
-  address?: string;
-  enabled?: boolean;
-  edited?: boolean;
-}
+import { Contract } from '../../interfaces';
 
 interface TrackedContractProps {
-  trackedContract: TrackedContract;
-  // saved: (contract: TrackedContract) => void; // Instead do a callback as "saved to refresh the view or the array"
-  remove: () => void;
+  trackedContract: Contract;
+  // saved: (contract: TrackedContract) => void; // TODO: Once we have the BE working use this function to do a callback to the parent to update with the id or the new status
+  remove: () => void; // This helps remove the line from the array and refresh the parent view
   focused?: boolean;
 }
 
 const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, remove, focused }) => {
   const [inputFocused, setInputFocused] = useState<boolean>(focused || false);
   const [edited, setEdited] = useState<boolean>(false);
-  const [contract, setContract] = useState<TrackedContract>(trackedContract);
+  const [contract, setContract] = useState<Contract>(trackedContract);
+  // Keep the original contract.
   const initialContract = trackedContract;
 
+  // Reference to the input
   let trackInputRef: any = null;
 
   useEffect(() => {
+    // When adding a new line we want straight awayt to focus the new line
     if (focused && trackInputRef) {
       trackInputRef.focus();
     }
   }, [focused, trackInputRef]);
 
-  // const saved = () => { callParent to update the array view without recharging the page }
-  //
-
   // Handle the UI state for the contrat changing
-  const handleContractChange = (value: TrackedContract): void => {
+  const handleContractChange = (value: Partial<Contract>): void => {
     setContract({ ...contract, ...value });
     setEdited(true);
   };
@@ -42,18 +38,45 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
   // reset the state to lose focus on the row
   const loseFocus = (): void => {
     setEdited(false);
-    trackInputRef.blur();
+    setInputFocused(false);
+    console.log('trackinputRef', trackInputRef);
+    if (trackInputRef) {
+      trackInputRef.blur();
+    }
   };
 
   // Save the contract
   const saveClick = (): void => {
     // save contract as it is
     // then set it as not edited anymore
-
-    loseFocus();
+    if (!contract.id) {
+      // TODO: Should have the BE send us the response of the new object so we can update the view ( example with the id )
+      ContractsApi.createContract(contract).then(() => {
+        loseFocus();
+      });
+    } else {
+      // TODO: same as above
+      ContractsApi.setContractStatus(contract.id, { active: contract.active }).then(() => {
+        loseFocus();
+      });
+    }
   };
 
-  // cancel the changes on the contract
+  const deleteClick = (): void => {
+    if (contract.id) {
+      // TODO: Handle the errors and exception
+      // This should be done when we have our notification component
+      // basically we'd make the notification component appear with the error
+      // Potentially add an outline to the line as red until it's touched ( Optional )
+      ContractsApi.deleteContract(contract.id).then(() => {
+        remove();
+      });
+    } else {
+      remove();
+    }
+  };
+
+  // Cancel the changes on the contract and revert back to original
   const cancelClick = (): void => {
     setContract(initialContract);
     loseFocus();
@@ -62,17 +85,17 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
   // Templates
   const saveCancelButtons = (
     <>
-      <Button className="ml-1 border-none px-3.5 py-3.5" disabled={!edited} color="green" onClick={() => saveClick()}>
+      <Button className="ml-1 border-none px-3.5 py-3.5" disabled={!edited} color="green" onClick={saveClick}>
         <FaCheck />
       </Button>
-      <Button className="ml-1 border-none px-3.5 py-3.5" disabled={!edited} color="gray" onClick={() => cancelClick()}>
+      <Button className="ml-1 border-none px-3.5 py-3.5" disabled={!edited} color="gray" onClick={cancelClick}>
         <FaTimes />
       </Button>
     </>
   );
 
   const removeButton = (
-    <Button className="ml-1 border-none px-3.5 py-3.5" color="red" onClick={() => remove()}>
+    <Button className="ml-1 border-none px-3.5 py-3.5" color="red" onClick={deleteClick}>
       <FaTrash />
     </Button>
   );
@@ -95,9 +118,9 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
       <div className="w-48 flex justify-end items-center absolute right-0 top-1/2 transform -translate-y-1/2">
         {inputFocused || edited ? <div className="flex mr-1">{saveCancelButtons}</div> : ''}
         <Toggle
-          enabled={contract.enabled || false}
+          enabled={contract.active || false}
           onClick={() => {
-            handleContractChange({ enabled: !contract.enabled });
+            handleContractChange({ active: !contract.active });
           }}
         />
         {removeButton}

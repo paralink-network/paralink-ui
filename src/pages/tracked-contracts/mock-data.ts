@@ -1,4 +1,5 @@
 // We can remove this when we can hook to the BE and get that data it's just for getting the UX ready for it
+// TODO: Some of those aren't set up in the BE
 const mockDataChain = [
   {
     name: 'eth.mainnet',

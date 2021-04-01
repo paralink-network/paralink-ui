@@ -18,7 +18,7 @@ const Button: React.FC<Button> = ({ children, onClick, color = GRAY_COLOR, class
   <button
     type="button"
     disabled={disabled}
-    className={`focus:outline-none text-${color}-600 text-sm py-1.5 px-3 rounded-md border border-${color}-600 hover:bg-${color}-50 ${className}`}
+    className={`focus:outline-none text-${color}-600 text-sm py-1.5 px-3 rounded-md border border-${color}-600 hover:bg-${color}-50 ${className} disabled:opacity-50`}
     onClick={onClick}
   >
     {children}
