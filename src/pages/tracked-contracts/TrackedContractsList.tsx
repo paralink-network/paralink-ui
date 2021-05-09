@@ -46,13 +46,28 @@ const TrackedContractsList: React.FC<{}> = () => {
       emptyContractExisting = lastEntry.address === '';
     }
 
-    const entry = { address: '', active: false, chain: activeChain?.name || '' };
+    const entry = { address: '', active: false, chain: activeChain?.name || '', newContract: true };
     if (activeChain && !emptyContractExisting) {
       setActiveChain({
         ...activeChain,
         contracts: [...activeChain.contracts, entry],
       });
       setFocused(true);
+    }
+  };
+
+  // Update the value in the list
+  const updateContract = (contract: Contract, index: number): void => {
+    // const entry = { address: '', active: false, chain: activeChain?.name || '', newContract: true };
+    const newContracts = activeChain?.contracts.slice(0);
+    if (newContracts) {
+      newContracts[index] = contract;
+      if (activeChain) {
+        setActiveChain({
+          ...activeChain,
+          contracts: newContracts,
+        });
+      }
     }
   };
 
@@ -102,9 +117,10 @@ const TrackedContractsList: React.FC<{}> = () => {
                   return (
                     <TrackedContractRow
                       focused={focused}
-                      key={activeChain.name + contract.address + contract.id}
+                      key={activeChain.name + contract.address}
                       trackedContract={contract}
                       remove={() => removeContract(index)}
+                      update={(c: Contract) => updateContract(c, index)}
                     />
                   );
                 })}

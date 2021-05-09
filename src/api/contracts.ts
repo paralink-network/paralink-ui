@@ -10,8 +10,9 @@ const contractsApi = '/contracts';
 const getAllContracts = () => axiosInstance.get<Contract[]>(`${contractsApi}`);
 const getChainContracts = (chain: string) => axiosInstance.get<Contract>(`${contractsApi}/${chain}`);
 const createContract = (contract: Omit<Contract, 'id'>) => axiosInstance.post<any>(`${contractsApi}`, contract);
-const setContractStatus = (id: number, contract: Pick<Contract, 'active'>) =>
-  axiosInstance.put<any>(`${contractsApi}/${id}`, contract);
-const deleteContract = (id: number) => axiosInstance.delete<any>(`${contractsApi}/${id}`);
+const setContractStatus = (chain: string, address: string, contract: Pick<Contract, 'active'>) =>
+  axiosInstance.put<any>(`${contractsApi}/${chain}/${address}`, contract);
+const deleteContract = (chain: string, address: string) =>
+  axiosInstance.delete<any>(`${contractsApi}/${chain}/${address}`);
 
 export default { getAllContracts, getChainContracts, createContract, setContractStatus, deleteContract };
