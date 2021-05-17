@@ -19,6 +19,7 @@ const TrackedContractsList: React.FC<{}> = () => {
   // We should have a modal displaying that there is some current changes to update
   // this is just a safe precaution
   useEffect(() => {
+    // TODO: Add potential error or nice fallback here
     ChainsApi.getAllChains().then((res: any) => {
       setChains(res.data.chains);
       // Select the first chain as active

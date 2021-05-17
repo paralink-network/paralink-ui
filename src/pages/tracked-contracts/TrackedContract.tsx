@@ -35,13 +35,15 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
 
   const showNotification = (title: string, type: 'success' | 'error'): void => {
     let displayNotification: any = toast;
+    let autoClose = 2000;
     if (type === 'success') {
       displayNotification = toast.success;
     } else if (type === 'error') {
       displayNotification = toast.error;
+      autoClose = 8000;
     }
     displayNotification(title, {
-      autoClose: 2000,
+      autoClose,
     });
   };
 
@@ -74,14 +76,21 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
         active: contract.active,
       };
 
+      // TODO: add probably a response interceptor ( if there is such thing in react ) for all axios request so we can avoid "any in responses"
+      // and actually only have the body
       ContractsApi.createContract(payload)
-        .then(() => {
-          contract.newContract = false;
-          loseFocus();
-          update(contract);
-          showNotification(`Contract ${ContractUtil.displayContract(contract.address)} has been added`, 'success');
+        .then((response: any) => {
+          if (response.data?.result === 'ok') {
+            contract.newContract = false;
+            loseFocus();
+            update(contract);
+            showNotification(`Contract ${ContractUtil.displayContract(contract.address)} has been added`, 'success');
+          } else if (response.data?.error) {
+            console.error('error', response.data?.error);
+            showNotification(response.data?.error, 'error');
+          }
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.error('error', e);
           showNotification(`Error when adding ${ContractUtil.displayContract(contract.address)}`, 'error');
         })
@@ -89,11 +98,16 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
     } else {
       // TODO: same as above
       ContractsApi.setContractStatus(contract.chain, contract.address, { active: contract.active })
-        .then(() => {
-          loseFocus();
-          showNotification(`Contract ${ContractUtil.displayContract(contract.address)} updated`, 'success');
+        .then((response: any) => {
+          if (response.data?.result === 'ok') {
+            loseFocus();
+            showNotification(`Contract ${ContractUtil.displayContract(contract.address)} updated`, 'success');
+          } else if (response.data?.error) {
+            console.error('error', response.data?.error);
+            showNotification(response.data?.error, 'error');
+          }
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.error('error', e);
           showNotification(`Error when trying to update ${ContractUtil.displayContract(contract.address)}`, 'error');
         })
@@ -109,11 +123,16 @@ const TrackedContractRow: React.FC<TrackedContractProps> = ({ trackedContract, r
       // Potentially add an outline to the line as red until it's touched ( Optional )
       setLoadingUpdate(true);
       ContractsApi.deleteContract(contract.chain, contract.address)
-        .then(() => {
-          remove();
-          showNotification(`Contract ${ContractUtil.displayContract(contract.address)} deleted`, 'success');
+        .then((response: any) => {
+          if (response.data?.result === 'ok') {
+            remove();
+            showNotification(`Contract ${ContractUtil.displayContract(contract.address)} deleted`, 'success');
+          } else if (response.data?.error) {
+            console.error('error', response.data?.error);
+            showNotification(response.data?.error, 'error');
+          }
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.error('delete error', e);
           showNotification(
             `Error when trying to delete Contract ${ContractUtil.displayContract(contract.address)}`,
