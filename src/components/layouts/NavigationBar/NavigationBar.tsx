@@ -19,6 +19,9 @@ const NavigationBar = (): JSX.Element => {
               <li className="navigation-bar__link">
                 <Link to="/ipfs">IPFS</Link>
               </li>
+              <li className="navigation-bar__link">
+                <Link to="/tracked-contracts">Tracked Contracts</Link>
+              </li>
             </ul>
           </div>
         </div>
