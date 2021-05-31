@@ -23,18 +23,21 @@ enum ViewState {
   Configurator,
 }
 
+type wrapperFunc = () => Promise<void>;
+
 const toPql = (code: string): Pql => JSON.parse(code);
 const fromPql = (pql: Pql): string => JSON.stringify(pql, null, '\t');
 
 const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element => {
-  const [view, setView] = useState<ViewState>(ViewState.Builder);
-
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState('');
   const [configId, setConfigId] = useState('');
   const [pql, setPql] = useState(fromPql(pqlData));
   const [data, setData] = useState({ ...queryData });
   const [showResult, setShowResult] = useState(false);
   const [projectName, setProjectName] = useState(pqlData.name);
+  const [view, setView] = useState<ViewState>(ViewState.Builder);
   const [selector, setSelector] = useState<SelectorKind>(SELECTOR_OPERATOR);
 
   const switchCodeResult = (): void => setShowResult(!showResult);
@@ -77,33 +80,46 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   };
   const compileToPql = (): void => setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
 
-  const run = (): Promise<void> =>
-    Promise.resolve()
-      .then(() => compileToPql())
-      .then(() => runPqlApi(toPql(pql)))
-      .then(setResult)
-      .catch((err) => setResult(err.message))
-      .finally(() => setShowResult(true));
+  const actionWrapper = async (fun: () => Promise<void>) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      await fun();
+    } catch (error) {
+      setResult(error.message);
+      setIsError(true);
+    } finally {
+      setShowResult(true);
+      setIsLoading(false);
+    }
+  }
+
+  const run = async (): Promise<void> => {
+    const runner = async () => {
+      compileToPql();
+      const result = await runPqlApi(toPql(pql));
+      setResult(result);
+    };
+    await actionWrapper(runner);
+  }
 
   const partialRun = (sourceId: string) => async (operatorId: string): Promise<void> => {
-    try {
+    const runner = async () => {
       const compiledPql = partialCompile(projectName, pqlData.psql_version, data, sourceId, operatorId);
       const resultRes = await runPqlApi(compiledPql);
       setPql(fromPql(compiledPql));
       setResult(resultRes);
-    } catch (error) {
-      setResult(error.message);
-    } finally {
-      setShowResult(true);
     }
+    await actionWrapper(runner);
   };
 
-  const save = (): Promise<void> =>
-    Promise.resolve()
-      .then(() => savePqlApi(toPql(pql)))
-      .then(setResult)
-      .catch((err) => setResult(err.message))
-      .finally(() => setShowResult(true));
+  const save = async (): Promise<void> => {
+    const runner = async () => {
+      const result = await savePqlApi(toPql(pql));
+      setResult(result);
+    };
+    await actionWrapper(runner);
+  }
 
   return (
     <div className="grid grid-cols-4 gap-0 h-full">
@@ -118,7 +134,7 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
           setProjectName={setProjectName}
           onResultCodeSwitch={switchCodeResult}
         />
-        <QueryBase pql={pql} setPql={setPql} result={result} showResult={showResult} />
+        <QueryBase pql={pql} setPql={setPql} result={result} showResult={showResult} isLoading={isLoading} error={isError} />
       </div>
       <div className="flex flex-col">
         <QueryBuilderHeader addSelectorAction={addSelectorAction} addOrConfigAggregatorAction={addOrConfigAggregator} />

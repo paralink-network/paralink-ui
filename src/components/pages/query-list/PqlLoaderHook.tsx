@@ -13,6 +13,16 @@ interface PqlLoaderHook {
   error: string;
 }
 
+const compare = (s1: PQLWithHash, s2: PQLWithHash) => {
+  if (s1.pql.name < s2.pql.name) {
+    return -1
+  } else if (s1.pql.name > s2.pql.name) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 const PqlLoaderHook = (): PqlLoaderHook => {
   const [data, setData] = useState<PQLWithHash[]>([]);
   const [error, setError] = useState("");
@@ -26,13 +36,20 @@ const PqlLoaderHook = (): PqlLoaderHook => {
 
         let pql: PQLWithHash[] = [];
 
-        for (let index in hashes) {
+        for (let index=0; index < hashes.length; index++) {
           try {
             pql.push(await loadIPFSWithHash(hashes[index]));
           } catch (e) { }
         }
 
-        setData(pql);
+        const orderedPqls = pql
+        .filter((item) => item.pql.name !== undefined)
+        .filter((item) => !item.pql.name.includes("yoyo"))
+        .filter((item) => !item.pql.name.includes("my_add"))
+        .filter((item) => !item.pql.name.includes("Aggregate"))
+        .sort(compare)
+
+        setData(orderedPqls);
         setStatus(Status.Success);
       } catch (e) {
         console.error(e);
