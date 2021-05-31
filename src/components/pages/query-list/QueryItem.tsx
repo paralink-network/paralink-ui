@@ -1,4 +1,5 @@
 import React from "react"
+import { Card, HoverCard } from "../../common/Card";
 
 interface QueryItemProps {
   hash: string;
@@ -6,10 +7,10 @@ interface QueryItemProps {
 }
 
 const QueryItem = ({hash, name} : QueryItemProps) => (
-  <div>
+  <HoverCard>
     <div>{name}</div>
     <div>{hash}</div>
-  </div>
+  </HoverCard>
 );
 
 export default QueryItem;

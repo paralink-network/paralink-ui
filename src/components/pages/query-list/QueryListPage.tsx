@@ -12,11 +12,11 @@ const QueryListPage = ({data} : QueryListPageProps) => {
       <QueryItem hash={pql.hash} name={pql.pql.name} key={index}/>);
 
   return (
-    <div>
-      <div>
+    <div className="container mx-auto mt-3">
+      <h3 className="text-3xl">
         Local PQL Queries:
-      </div>
-      <div className="">
+      </h3>
+      <div className="grid md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {queriesView}
         <div>
           <div>+</div>
