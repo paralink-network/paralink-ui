@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Header, Table } from 'semantic-ui-react';
 import { axiosInstance } from '../../../api/api';
-
-interface ApiCall {
-  hashes: string[];
-}
+import { ApiCall } from '../../../api/pql';
 
 const IpfsList = (): JSX.Element => {
   const [, setIsLoading] = useState(true);

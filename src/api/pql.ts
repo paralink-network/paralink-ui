@@ -1,10 +1,20 @@
 import { Pql } from '../state/pql/pql';
 import { axiosInstance } from './api';
 
-interface PQLWithHash {
+
+export interface ApiCall {
+  hashes: string[];
+}
+
+export interface PQLWithHash {
   pql: Pql;
   hash: string;
 }
+
+export const loadLocalIpfsHashes = (): Promise<ApiCall> => 
+  Promise.resolve()
+    .then(() => axiosInstance.get<ApiCall>('ipfs'))
+    .then((result) => result.data);
 
 export const loadIPFSWithHash = (hash: string): Promise<PQLWithHash> =>
   Promise.resolve()
