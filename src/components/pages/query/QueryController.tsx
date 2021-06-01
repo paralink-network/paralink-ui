@@ -68,24 +68,13 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
     configureAction(AGGREGATOR_CONFIG);
   };
 
-  const build = (): void => {
-    try {
-      const newQueryData = convertPql(JSON.parse(pql) as Pql);
-      setData(newQueryData);
-      setShowResult(false);
-    } catch (error) {
-      setResult(error.message);
-      setShowResult(true);
-    }
-  };
-  const compileToPql = (): void => setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
-
   const actionWrapper = async (fun: () => Promise<void>) => {
     try {
       setIsError(false);
       setIsLoading(true);
       await fun();
     } catch (error) {
+      console.error(error);
       setResult(error.message);
       setIsError(true);
     } finally {
@@ -93,6 +82,21 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
       setIsLoading(false);
     }
   }
+  
+  const build = (): void => {
+    try {
+      setIsError(false);
+      const newQueryData = convertPql(JSON.parse(pql) as Pql);
+      setData(newQueryData);
+      setShowResult(false);
+    } catch (error) {
+      setResult(error.message);
+      setIsError(true);
+      setShowResult(true);
+    }
+  };
+  const compileToPql = (): void => setPql(fromPql(compile(projectName, pqlData.psql_version, data)));
+
 
   const run = async (): Promise<void> => {
     const runner = async () => {
