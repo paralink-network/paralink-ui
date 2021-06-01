@@ -86,8 +86,10 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
   const build = (): void => {
     try {
       setIsError(false);
-      const newQueryData = convertPql(JSON.parse(pql) as Pql);
+      const pqlData = JSON.parse(pql) as Pql;
+      const newQueryData = convertPql(pqlData);
       setData(newQueryData);
+      setProjectName(pqlData.name);
       setShowResult(false);
     } catch (error) {
       setResult(error.message);
@@ -119,7 +121,8 @@ const QueryController = ({ queryData, pqlData }: QueryController): JSX.Element =
 
   const save = async (): Promise<void> => {
     const runner = async () => {
-      const result = await savePqlApi(toPql(pql));
+      const data = {...toPql(pql), name: projectName}
+      const result = await savePqlApi(data);
       setResult(result);
     };
     await actionWrapper(runner);
