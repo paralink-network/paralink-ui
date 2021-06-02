@@ -44,9 +44,6 @@ const PqlLoaderHook = (): PqlLoaderHook => {
 
         const orderedPqls = pql
         .filter((item) => item.pql.name !== undefined)
-        .filter((item) => !item.pql.name.includes("yoyo"))
-        .filter((item) => !item.pql.name.includes("my_add"))
-        .filter((item) => !item.pql.name.includes("Aggregate"))
         .sort(compare)
 
         setData(orderedPqls);

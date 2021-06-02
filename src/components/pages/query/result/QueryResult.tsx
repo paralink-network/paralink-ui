@@ -13,7 +13,7 @@ const QueryResult = ({ error, isLoading, result }: QueryResult): JSX.Element => 
     return <Loading />;
   }
   return (
-    <div className={`container mt-5 text-center ${error ? "text-red-700" : ""}`}>{result}</div>
+    <div className={`container mt-5 text-center overflow-auto ${error ? "text-red-700" : ""}`}>{result}</div>
   );
 };
 
